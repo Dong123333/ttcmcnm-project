@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #1d3041;
+}
+
+.login-wrapper {
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-logo {
+    display: flex;
+    justify-content: center;
+}
+
+.login-logo img {
+    height: 82px;
+    width: 82px;
+    object-fit: cover;
+}
+
+.login-body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 54px;
+}
+
+.login-form {
+    margin-bottom: 24px;
+}
+
+.login-group {
+    width: 400px;
+    height: 54px;
+    position: relative;
+}
+
+.login-input-hidden {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.login-input-hidden img {
+    width: 20px;
+    height: 20px;
+}
+
+.login-group:first-child {
+    margin-bottom: 12px;
+}
+
+.login-group input {
+    width: 100%;
+    height: 100%;
+    padding-left: 12px;
+    padding-right: 48px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    border: 1px solid #273c4a;
+    background-color: #1e2b33;
+    color: #fff;
+    font-size: 14px;
+}
+
+.login-group input::placeholder {
+    color: #8291a5;
+}
+
+.login-button {
+    width: 400px;
+    height: 43px;
+    margin-bottom: 12px;
+}
+
+.login-button button {
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: #0064e0;
+    color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.login-forget-password a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login-divider {
+    margin: 24px 0;
+}
+
+.login-divider p {
+    color: #fff;
+    font-size: 14px;
+}
+
+.login-social {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+}
+
+.login-social button {
+    width: 400px;
+    height: 43px;
+    position: relative;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.login-social button .login-social-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 20%;
+}
+
+.login-social button svg {
+    font-size: 20px;
+}
+
+.login-social button p {
+    margin: 0;
+}
+
+.login-footer {
+    margin-top: auto;
+    margin-bottom: 12px;
+}
+
+.login-footer p {
+    text-align: center;
+    color: #fff;
+}
+
+.login-footer p a {
+    color: #4ca6f4;
+    text-decoration: none;
+}
