@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chat</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/laravel-echo/dist/echo.js"></script>
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+</head>
+<body>
+    <h1>Chat Room</h1>
+    <div id="messages">
+        @foreach($messages as $message)
+            <p><strong>{{ $message->user }}:</strong> {{ $message->message }}</p>
+        @endforeach
+    </div>
+    <form id="chat-form">
+        <input type="text" id="user" placeholder="Your Name" required>
+        <input type="text" id="message" placeholder="Your Message" required>
+        <button type="submit">Send</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('chat-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const user = document.getElementById('user').value;
+            const message = document.getElementById('message').value;
+
+            axios.post('/chat', {
+                user: user,
+                message: message,
+            });
+        });
+
+        const echo = new Echo({
+            broadcaster: 'pusher',
+            key: '{{ env("PUSHER_APP_KEY") }}',
+            cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
+            forceTLS: true
+        });
+
+        echo.channel('chat')
+            .listen('.message.sent', (e) => {
+                const messages = document.getElementById('messages');
+                const newMessage = document.createElement('p');
+                newMessage.innerHTML = `<strong>${e.message.user}:</strong> ${e.message.message}`;
+                messages.appendChild(newMessage);
+            });
+    </script>
+</body>
+</html> 
