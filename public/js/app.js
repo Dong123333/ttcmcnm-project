@@ -2165,24 +2165,6 @@ module.exports = {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 // script.js
 
-document.getElementById('send-button').addEventListener('click', function () {
-  var inputField = document.getElementById('chat-input');
-  var messageText = inputField.value.trim();
-  if (messageText !== '') {
-    var chatMessages = document.getElementById('chat-messages');
-    var newMessage = document.createElement('div');
-    newMessage.classList.add('message');
-    newMessage.innerHTML = "<p><strong>You:</strong> ".concat(messageText, "</p>");
-    chatMessages.appendChild(newMessage);
-
-    // Clear input field
-    inputField.value = '';
-
-    // Auto-scroll to the bottom
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-});
-
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
