@@ -1,1 +1,3 @@
 require('./bootstrap');
+// script.js
+
