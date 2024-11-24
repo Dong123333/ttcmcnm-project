@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ChatController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+Route::get('/chat', function () {
+    return view('chat'); // Trả về view 'chat.blade.php'
+    });
+    
+// Route::post('/chat', [ChatController::class, 'sendMessage']);
+// });
