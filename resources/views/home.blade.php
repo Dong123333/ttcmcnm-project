@@ -51,7 +51,7 @@
               <li>
                 <a href="">
                   <img
-                    src="https://via.placeholder.com/50"
+                    src="https://placehold.co/400x400/png"
                     alt="Trang Cá Nhân"
                     class="profile-img-side3"
                   />
@@ -67,7 +67,7 @@
         <div class="post">
           <div class="post-header">
             <img
-              src="https://via.placeholder.com/50"
+              src="https://placehold.co/400x400/png"
               alt="Profile"
               class="post-profile-img"
             />
@@ -77,7 +77,7 @@
           </div>
           <div class="post-content">
             <img
-              src="https://via.placeholder.com/400x500"
+              src="https://placehold.co/400x400/png"
               alt="Post Image"
               class="post-img"
             />
@@ -99,7 +99,7 @@
         <div class="post">
           <div class="post-header">
             <img
-              src="https://via.placeholder.com/50"
+              src="https://placehold.co/400x400/png"
               alt="Profile"
               class="post-profile-img"
             />
@@ -109,7 +109,7 @@
           </div>
           <div class="post-content">
             <img
-              src="https://via.placeholder.com/400x500"
+              src="https://placehold.co/400x400/png"
               alt="Post Image"
               class="post-img"
             />
@@ -132,7 +132,7 @@
       <div class="account-info">
         <div class="profile">
           <img
-            src="https://via.placeholder.com/50"
+            src="https://placehold.co/400x400/png"
             alt="Profile"
             class="profile-img"
           />

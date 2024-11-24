@@ -12,7 +12,7 @@
     <div class="sidebar">
       <!-- Avatar của người dùng hiện tại -->
       <div class="current-user">
-            <img src="https://via.placeholder.com/60" alt="User Avatar" class="user-avatar">
+            <img src="https://placehold.co/400x400/png" alt="User Avatar" class="user-avatar">
             <div class="user-info">
                 <p class="username-current">quocvuongx_</p>
                 <span class="status">Primary | General</span>
@@ -23,21 +23,21 @@
       <div class="online-users">
         <div class="online-user">
           <div class="avatar-wrapper">
-            <img src="https://via.placeholder.com/60" alt="User Avatar" class="avatar">
+            <img src="https://placehold.co/600x400/png" alt="User Avatar" class="avatar">
             <div class="online-indicator"></div>
               </div>
               <p class="username">Vương</p>
           </div>
         <div class="online-user">
           <div class="avatar-wrapper">
-            <img src="https://via.placeholder.com/60" alt="User Avatar" class="avatar">
+            <img src="https://placehold.co/600x400/png" alt="User Avatar" class="avatar">
             <div class="online-indicator"></div>
               </div>
               <p class="username">Bắp</p>
           </div>
         <div class="online-user">
           <div class="avatar-wrapper">
-            <img src="https://via.placeholder.com/60" alt="User Avatar" class="avatar">
+            <img src="https://placehold.co/600x400/png" alt="User Avatar" class="avatar">
             <div class="online-indicator"></div>
           </div>
             <p class="username">thongloe</p>
@@ -47,21 +47,21 @@
         <!-- Danh sách các user đang online -->
         <div class="contact-list">
             <div class="contact active">
-                <img src="https://via.placeholder.com/40" alt="Avatar" class="contact-avatar">
+                <img src="https://placehold.co/600x400/png" alt="Avatar" class="contact-avatar">
                 <div class="contact-info">
                     <p class="contact-name">Kha Nguyen</p>
                     <span class="contact-status">Active 9m ago</span>
                 </div>
             </div>
             <div class="contact">
-                <img src="https://via.placeholder.com/40" alt="Avatar" class="contact-avatar">
+                <img src="https://placehold.co/600x400/png" alt="Avatar" class="contact-avatar">
                 <div class="contact-info">
                     <p class="contact-name">Khánh Nguyễn</p>
                     <span class="contact-status">Active 1h ago</span>
                 </div>
             </div>
             <div class="contact">
-                <img src="https://via.placeholder.com/40" alt="Avatar" class="contact-avatar">
+                <img src="https://placehold.co/600x400/png" alt="Avatar" class="contact-avatar">
                 <div class="contact-info">
                     <p class="contact-name">Hồ Bá Đông</p>
                     <span class="contact-status">Active 11m ago</span>
@@ -79,7 +79,7 @@
       <!-- Chat Header -->
       <div class="chat-header">
         <div class="chat-header-left">
-          <img src="https://via.placeholder.com/40" alt="Avatar" class="chat-avatar">
+          <img src="https://placehold.co/600x400/png" alt="Avatar" class="chat-avatar">
           <div class="chat-user-info">
             <p class="chat-username">Kha Nguyen</p>
             <p class="chat-status">Active 15m ago</p>
