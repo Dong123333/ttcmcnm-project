@@ -13,11 +13,16 @@ use App\Http\Controllers\ChatController;
 |
 */
 
+
+Route::get('/home', function () {
+    return view('home');
+});
+
 // Route::get('/', function () {
 //     return view('welcome');
 Route::get('/chat', function () {
     return view('chat'); // Trả về view 'chat.blade.php'
     });
     
-// Route::post('/chat', [ChatController::class, 'sendMessage']);
-// });
+
+
