@@ -29,7 +29,7 @@ Route::get('/create-post', function () {
 Route::get('/update-post', function () {
     return view('Update_post');
 });
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Route::get('/chat', function () {
     return view('chat'); 
 });
+

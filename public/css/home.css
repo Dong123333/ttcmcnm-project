@@ -71,8 +71,9 @@ body {
 
 /* Main content */
 .main-content {
-    flex: 1;
+    flex: 1; /* Để nó chiếm không gian linh hoạt */
     padding: 20px;
+    margin-right: 300px; /* Thêm khoảng trống bên phải tương ứng với chiều rộng của account-info */
     display: flex;
     flex-direction: column;
 }
@@ -101,8 +102,39 @@ body {
 .post-content {
     width: 400px;
     height: 500px;
+    position: relative;
+    max-width: 400px;
+    margin: auto;
+    overflow: hidden;
 }
 
+.slider-wrapper {
+    height: 100%;
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    background-color: transparent;
+    outline: none;
+    color: #333;
+}
+
+.slider-btn.prev {
+    left: 10px;
+}
+
+.slider-btn.next {
+    right: 10px;
+}
 .post-img {
     border-radius: 10px;
     width: 100%;
@@ -148,9 +180,16 @@ body {
 
 /* Account-Info */
 .account-info {
+    position: fixed; /* Đặt cố định */
+    right: 0; /* Canh sát lề phải */
+    top: 0; /* Canh sát lề trên */
+    height: 100vh; /* Chiều cao chiếm toàn bộ màn hình */
     width: 300px;
     padding: 20px;
     border-left: 1px solid #333;
+    background-color: #121212; /* Màu nền */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); /* Hiệu ứng đổ bóng */
+    z-index: 100; /* Đảm bảo luôn nằm trên các nội dung khác */
 }
 .profile {
     display: flex;
@@ -194,4 +233,94 @@ body {
 
 .switch:hover {
     color: #005f8d; /* Màu khi hover */
+}
+
+.header-contact {
+    border-top: #333 solid 1px;
+    margin-top: 20px;
+}
+/* Người liên hệ */
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 400px; /* Giới hạn chiều cao nếu danh sách dài */
+    overflow-y: auto; /* Kích hoạt cuộn dọc */
+}
+
+/* Từng mục liên hệ */
+.contact-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    border-top: #333 solid 1px;
+}
+
+.contact-item:last-child {
+    border-bottom: #333 solid 1px;
+}
+
+.contact-item:hover {
+    background-color: #424242; /* Đổi màu nền khi hover */
+}
+/* Ảnh đại diện */
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover; /* Giúp ảnh vừa khung */
+}
+
+/* Thông tin liên hệ */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-name {
+    font-weight: bold;
+    color: #fff;
+    font-size: 14px;
+}
+
+.contact-status {
+    font-size: 12px;
+    color: #b0b0b0;
+}
+.contact-item.online .contact-status {
+    color: #4caf50; /* Màu xanh cho trạng thái online */
+}
+
+.contact-item.offline .contact-status {
+    color: #b0b0b0; /* Màu xám cho trạng thái offline */
+}
+/* Contact-Footer */
+.contact-footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #aaa; /* Màu chữ nhạt */
+    text-align: center;
+}
+
+.contact-footer p {
+    margin: 5px 0;
+}
+
+.contact-footer a {
+    text-decoration: none;
+    color: #aaa;
+    transition: color 0.3s;
+}
+
+.contact-footer a:hover {
+    color: #0095f6; /* Màu khi hover */
+}
+
+.contact-footer .contact-info {
+    font-size: 14px;
+    color: #888;
 }
