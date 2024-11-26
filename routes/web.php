@@ -33,3 +33,4 @@ Route::get('/chat', function () {
     return view('chat'); 
 });
 
+Route::post('/save-post', [PostController::class, 'store'])->name('posts.store');

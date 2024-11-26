@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="{{ asset('css/Create_post.css') }}">
 </head>
 <body>
-    <form action="/save-post" method="POST" class="modal">
+    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="modal">
+        @csrf
         <div class="modal-header">
             <span class="modal-title">Tạo bài viết mới</span>
             <button type="button" class="btn-close" onclick="alert('Đóng modal')">✖</button>
