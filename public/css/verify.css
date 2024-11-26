@@ -12,48 +12,55 @@
     background-color: #1d3041;
 }
 
-.signup-wrapper {
+.verify-wrapper {
     width: 600px;
     height: 600px;
     display: flex;
     flex-direction: column;
 }
 
-.signup-logo {
+.verify-logo {
     display: flex;
     justify-content: center;
 }
 
-.signup-logo img {
+.verify-logo img {
     height: 82px;
     width: 82px;
     object-fit: cover;
 }
 
-.signup-body {
+.verify-body {
     display: flex;
     align-items: center;
     flex-direction: column;
     margin-top: 54px;
 }
 
-.signup-form {
+.verify-title {
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
     margin-bottom: 24px;
 }
 
-.signup-group {
+.verify-form {
+    margin-bottom: 24px;
+}
+
+.verify-group {
     width: 400px;
     height: 54px;
     position: relative;
 }
 
-.signup-error {
+.verify-error {
     margin: 12px 0;
     color: red;
     font-size: 14px;
 }
 
-.signup-input-hidden {
+.verify-input-hidden {
     position: absolute;
     right: 24px;
     top: 50%;
@@ -64,16 +71,16 @@
     outline: none;
 }
 
-.signup-input-hidden img {
+.verify-input-hidden img {
     width: 20px;
     height: 20px;
 }
 
-.signup-group:nth-child(2) {
-    margin: 12px 0;
+.verify-group:first-child {
+    margin-bottom: 12px;
 }
 
-.signup-group input {
+.verify-group input {
     width: 100%;
     height: 100%;
     padding-left: 12px;
@@ -87,17 +94,17 @@
     font-size: 14px;
 }
 
-.signup-group input::placeholder {
+.verify-group input::placeholder {
     color: #8291a5;
 }
 
-.signup-button {
+.verify-button {
     width: 400px;
     height: 43px;
     margin-bottom: 12px;
 }
 
-.signup-button button {
+.verify-button button {
     height: 100%;
     width: 100%;
     border: none;
@@ -107,55 +114,4 @@
     border-radius: 20px;
     cursor: pointer;
     font-size: 15px;
-}
-
-.signup-footer {
-    margin-top: auto;
-    margin-bottom: 12px;
-}
-
-.signup-footer p {
-    text-align: center;
-    color: #fff;
-}
-
-.signup-footer p a {
-    color: #4ca6f4;
-    text-decoration: none;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 60px;
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
 }

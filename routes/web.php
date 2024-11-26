@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\Web\AuthController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ChatController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,23 +12,28 @@ use App\Http\Controllers\ChatController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/login', function(){
-    return view('login');
-});
-Route::get('/signup', function(){
-    return view('signup');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('form_login');
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
+Route::get('/signup', [AuthController::class, 'showSignupForm'])->name('signup');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::get('/verify', [AuthController::class, 'showVerifyForm'])->name('form_verify');
+Route::post('/verify', [AuthController::class, 'verify'])->name('verify');
+
+Route::get('login/google', [AuthController::class, 'redirectToGoogle']);
+Route::get('login/google/callback', [AuthController::class, 'handleGoogleCallback']);
+
+Route::get('login/github', [AuthController::class, 'redirectToGitHub']);
+Route::get('login/github/callback', [AuthController::class, 'handleGitHubCallback']);
+
+Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('check_user');
+
+Route::group(['prefix' => 'posts', 'middleware' => 'check_user', 'as' => 'posts.'], function () {
+    Route::view('/home', 'home')->name('home');
+    Route::view('/create-post', 'Create_post');
+    Route::view('/update-post', 'Update_post');
+    Route::view('/chat', 'chat');
 });
 
-Route::get('/', function () {
-    return view('home');
-});
-Route::get('/create-post', function () {
-    return view('Create_post');
-});
-Route::get('/update-post', function () {
-    return view('Update_post');
-});
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-Route::get('/chat', function () {
-    return view('chat'); 
-});

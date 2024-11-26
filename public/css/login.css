@@ -47,6 +47,12 @@
     position: relative;
 }
 
+.login-error {
+    margin: 12px 0;
+    color: red;
+    font-size: 14px;
+}
+
 .login-input-hidden {
     position: absolute;
     right: 24px;

@@ -15,7 +15,7 @@
 
         <div class="modal-body">
             <div class="user-info">
-                <img src="{{ asset('images/person.png') }}" alt="User Avatar">
+                <img src="https://placehold.co/400x400" alt="User Avatar">
                 <div class="user-details">
                     <strong>Đỗ Trần Tuyến</strong>
                 </div>

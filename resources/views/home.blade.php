@@ -129,20 +129,38 @@
           <span class="show-more">Xem thêm</span>
         </div>
       </div>
+
       <div class="account-info">
+          @if(Auth::check())
         <div class="profile">
-          <img
-            src="https://placehold.co/400x400/png"
-            alt="Profile"
-            class="profile-img"
-          />
-          <div class="profile-info">
-            <h4 class="username">thongmloe</h4>
-            <p class="fullname">Hoàng Văn Thông</p>
-          </div>
-          <a href="#" class="switch">Chuyển</a>
+            <img src="{{ Auth::user()->avatar ?? 'default-avatar.jpg' }}" alt="Profile" class="profile-img" />
+            <div class="profile-info">
+                <h4 class="username">{{ Auth::user()->fullName }}</h4>
+                <p class="fullname">{{ Auth::user()->nickName }}</p>
+            </div>
         </div>
-      </div>
+    @elseif(session('google_user'))
+        <div class="profile">
+            <img src="{{ session('google_user')->avatar }}" alt="Profile" class="profile-img" />
+            <div class="profile-info">
+                <h4 class="username">{{ session('google_user')->name }}</h4>
+                <p class="fullname">{{ session('google_user')->email }}</p>
+            </div>
+        </div>
+    @elseif(session('github_user'))
+        <div class="profile">
+            <img src="{{ session('github_user')->avatar }}" alt="Profile" class="profile-img" />
+            <div class="profile-info">
+                <h4 class="username">{{ session('github_user')->name }}</h4>
+                <p class="fullname">{{ session('github_user')->nickname }}</p>
+            </div>
+        </div>
+    @endif
+        <form method="POST" action="{{ route('logout') }}" class="logout-form">
+            @csrf
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+    </div>
     </div>
     <!-- JavaScript -->
     <script>
