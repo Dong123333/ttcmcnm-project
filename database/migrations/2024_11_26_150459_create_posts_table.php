@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-        /**
-     * Reverse the migrations.
+    /**
+     * Run the migrations.
      *
      * @return void
      */
@@ -15,9 +15,19 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->text('content');
-            $table->string('media')->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->text('content')->nullable();
             $table->timestamps();
         });
+    }    
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('posts');
     }
 };
