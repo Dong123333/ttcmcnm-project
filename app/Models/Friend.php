@@ -11,8 +11,19 @@ class Friend extends Model
 
     protected $fillable = ['user_id', 'friend_id', 'status'];
 
+    protected $primaryKey = 'id';
+
+    public $incrementing = true;
+
+    protected $keyType = 'int';
+
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function friend()
+    {
+        return $this->belongsTo(User::class, 'friend_id');
     }
 }

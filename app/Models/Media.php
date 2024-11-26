@@ -11,8 +11,14 @@ class Media extends Model
 
     protected $fillable = ['post_id', 'media_type', 'media_url'];
 
+    protected $primaryKey = 'id';
+
+    public $incrementing = true;
+
+    protected $keyType = 'int';
+
     public function post()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Post::class, 'post_id');
     }
 }

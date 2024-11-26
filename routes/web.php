@@ -22,7 +22,7 @@ Route::get('/signup', function(){
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 Route::get('/create-post', function () {
     return view('Create_post');
 });
