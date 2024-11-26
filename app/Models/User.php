@@ -31,4 +31,25 @@ class User extends Authenticatable
         'password',
         'code_id',
     ];
+
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'user_id');
+    }
+
+    public function friends()
+    {
+        return $this->hasMany(Friend::class, 'user_id');
+    }
+
+    public function messagesSent()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function messagesReceived()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
 }

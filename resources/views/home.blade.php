@@ -14,38 +14,38 @@
           <aside class="sidebar">
             <div class="logo-near">
               <a href="">
-                <img src="{{ asset('img/logo_near.jpg') }}" alt="Logo" />
+                <img src="{{ asset('images/logo_near.jpg') }}" alt="Logo" />
               </a>  
             </div>
             <ul class="menu">
               <li>
                 <a href=""
-                  ><img src="{{ asset('img/home_icon.svg') }}" alt="" />
+                  ><img src="{{ asset('images/home_icon.svg') }}" alt="" />
                   <p>Trang Chủ</p></a
                 >
               </li>
               <li>
                 <a href=""
-                  ><img src="{{ asset('img/search_icon.svg') }}" alt="" />
+                  ><img src="{{ asset('images/search_icon.svg') }}" alt="" />
                   <p>Tìm Kiếm</p></a
                 >
               </li>
               <li>
-                <a href=""
-                  ><img src="{{ asset('img/chat_icon.svg') }}" alt="" />
+                <a href="/chat"
+                  ><img src="{{ asset('images/chat_icon.svg') }}" alt="" />
                   <p>Tin Nhắn</p></a
                 >
               </li>
               <li>
                 <a href=""
-                  ><img src="{{ asset('img/bell_icon.svg') }}" alt="" />
+                  ><img src="{{ asset('images/bell_icon.svg') }}" alt="" />
                   <p>Thông Báo</p></a
                 >
               </li>
               <li>
-                <a href=""
-                  ><img src="{{ asset('img/setting_icon.svg') }}" alt="Cài Đặt" />
-                  <p>Cài Đặt</p></a
+                <a href="/create-post"
+                  ><img src="{{ asset('images/plus_icon.svg') }}" alt="Cài Đặt" />
+                  <p>Tạo</p></a
                 >
               </li>
               <li>
@@ -58,6 +58,12 @@
                   <p>Trang Cá Nhân</p>
                 </a>
               </li>
+              <li>
+                <a href=""
+                  ><img src="{{ asset('images/setting_icon.svg') }}" alt="Cài Đặt" />
+                  <p>Cài Đặt</p></a
+                >
+              </li>
             </ul>
           </aside>
         </div>
@@ -67,7 +73,7 @@
         <div class="post">
           <div class="post-header">
             <img
-              src="https://placehold.co/400x400/png"
+              src="https://placehold.co/50x50/png"
               alt="Profile"
               class="post-profile-img"
             />
@@ -76,17 +82,19 @@
             </div>
           </div>
           <div class="post-content">
-            <img
-              src="https://placehold.co/400x400/png"
-              alt="Post Image"
-              class="post-img"
-            />
+            <button class="slider-btn prev">❮</button>
+            <div class="slider-wrapper">
+              <img src="https://placehold.co/600x600/png?text=Image+1" alt="Image 1" class="post-img" />
+              <img src="https://placehold.co/600x600/png?text=Image+2" alt="Image 2" class="post-img" />
+              <img src="https://placehold.co/600x600/png?text=Image+3" alt="Image 3" class="post-img" />
+            </div>
+            <button class="slider-btn next">❯</button>
           </div>
           <div class="post-actions">
-            <img src="{{ asset('img/like_icon.svg') }}" alt="Like" />
-            <img src="{{ asset('img/comment_icon.svg') }}" alt="Comment" />
-            <img src="{{ asset('img/send_icon.svg') }}" alt="Send" />
-            <img src="{{ asset('img/save_icon.svg') }}" alt="Save" />
+            <img src="{{ asset('images/like_icon.svg') }}" alt="Like" />
+            <img src="{{ asset('images/comment_icon.svg') }}" alt="Comment" />
+            <img src="{{ asset('images/send_icon.svg') }}" alt="Send" />
+            <img src="{{ asset('images/save_icon.svg') }}" alt="Save" />
           </div>
           <div class="post-description">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
@@ -99,7 +107,7 @@
         <div class="post">
           <div class="post-header">
             <img
-              src="https://placehold.co/400x400/png"
+              src="https://placehold.co/50x50/png"
               alt="Profile"
               class="post-profile-img"
             />
@@ -108,17 +116,19 @@
             </div>
           </div>
           <div class="post-content">
-            <img
-              src="https://placehold.co/400x400/png"
-              alt="Post Image"
-              class="post-img"
-            />
+            <button class="slider-btn prev">❮</button>
+            <div class="slider-wrapper">
+              <img src="https://placehold.co/600x600/png?text=Image+1" alt="Image 1" class="post-img" />
+              <img src="https://placehold.co/600x600/png?text=Image+2" alt="Image 2" class="post-img" />
+              <img src="https://placehold.co/600x600/png?text=Image+3" alt="Image 3" class="post-img" />
+            </div>
+            <button class="slider-btn next">❯</button>
           </div>
           <div class="post-actions">
-            <img src="{{ asset('img/like_icon.svg') }}" alt="Like" />
-            <img src="{{ asset('img/comment_icon.svg') }}" alt="Comment" />
-            <img src="{{ asset('img/send_icon.svg') }}" alt="Send" />
-            <img src="{{ asset('img/save_icon.svg') }}" alt="Save" />
+            <img src="{{ asset('images/like_icon.svg') }}" alt="Like" />
+            <img src="{{ asset('images/comment_icon.svg') }}" alt="Comment" />
+            <img src="{{ asset('images/send_icon.svg') }}" alt="Send" />
+            <img src="{{ asset('images/save_icon.svg') }}" alt="Save" />
           </div>
           <div class="post-description">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
@@ -148,57 +158,88 @@
             </div>
         </div>
     @elseif(session('github_user'))
-        <div class="profile">
+    <div class="profile">
             <img src="{{ session('github_user')->avatar }}" alt="Profile" class="profile-img" />
             <div class="profile-info">
                 <h4 class="username">{{ session('github_user')->name }}</h4>
                 <p class="fullname">{{ session('github_user')->nickname }}</p>
             </div>
-        </div>
+    </div>
     @endif
         <form method="POST" action="{{ route('logout') }}" class="logout-form">
             @csrf
             <button type="submit" class="logout-button">Logout</button>
         </form>
+        <div class="header-contact">
+            <h3>Người liên hệ</h3>
+        </div>
+        <ul class="contact-list">
+          <li class="contact-item online">
+            <img src="https://placehold.co/40x40/png?text=Image+1" alt="Avatar" class="avatar" />
+            <div class="contact-info">
+              <span class="contact-name">Nguyễn Thị Trà My</span>
+              <span class="contact-status">Trực tuyến</span>
+            </div>
+          </li>
+          <li class="contact-item online">
+            <img src="https://placehold.co/40x40/png?text=Image+1" alt="Avatar" class="avatar" />
+            <div class="contact-info">
+              <span class="contact-name">Giang Nam</span>
+              <span class="contact-status">Trực tuyến</span>
+            </div>
+          </li>
+          <li class="contact-item online">
+            <img src="https://placehold.co/40x40/png?text=Image+1" alt="Avatar" class="avatar" />
+            <div class="contact-info">
+              <span class="contact-name">Hồ Bá Đông</span>
+              <span class="contact-status">Trực tuyến</span>
+            </div>
+          </li>
+          <li class="contact-item offline">
+            <img src="https://placehold.co/40x40/png?text=Image+1" alt="Avatar" class="avatar" />
+            <div class="contact-info">
+              <span class="contact-name">Nguyễn Thị Lan Ánh</span>
+              <span class="contact-status">Ngoại tuyến</span>
+            </div>
+          </li>
+          <li class="contact-item offline">
+            <img src="https://placehold.co/40x40/png?text=Image+2" alt="Avatar" class="avatar" />
+            <div class="contact-info">
+              <span class="contact-name">Dang Anh Thu</span>
+              <span class="contact-status">Ngoại tuyến</span>
+            </div>
+          </li>
+          <li class="contact-item offline">
+            <img src="https://placehold.co/40x40/png?text=Image+1" alt="Avatar" class="avatar" />
+            <div class="contact-info">
+              <span class="contact-name">Hữu Luu</span>
+              <span class="contact-status">Ngoại tuyến</span>
+            </div>
+          </li>
+        </ul>
+        <div class="contact-footer">
+          <p>
+            <a href="#">Giới thiệu</a> ·
+            <a href="#">Trợ giúp</a> ·
+            <a href="#">Báo chí</a> ·
+            <a href="#">API</a> ·
+            <a href="#">Việc làm</a> ·
+            <a href="#">Quyền riêng tư</a> ·
+            <a href="#">Điều khoản</a> ·
+            <a href="#">Vị trí</a> ·
+            <a href="#">Ngôn ngữ</a>
+          </p>
+          <p>
+            VanThong đã xác minh
+          </p>
+          <p>
+            © 2050 NEAR FROM WTF
+          </p>
+        </div>
+
     </div>
     </div>
     <!-- JavaScript -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const showMoreButtons = document.querySelectorAll(".show-more");
-
-        showMoreButtons.forEach((button) => {
-          button.addEventListener("click", function () {
-            const postDescription = this.previousElementSibling;
-
-            if (postDescription.classList.contains("expanded")) {
-              postDescription.classList.remove("expanded");
-              this.textContent = "Xem thêm";
-              postDescription.style.display = "-webkit-box";
-            } else {
-              postDescription.classList.add("expanded");
-              this.textContent = "Ẩn bớt";
-              postDescription.style.display = "block";
-            }
-          });
-        });
-
-        const likeIcons = document.querySelectorAll(
-          ".post-actions img:first-child"
-        );
-
-        likeIcons.forEach((likeIcon) => {
-          likeIcon.addEventListener("click", function () {
-            const currentIcon = this;
-
-            if (currentIcon.src.includes("like_icon.svg")) {
-              currentIcon.src = "{{ asset('img/likefull_icon.svg') }}";
-            } else {
-              currentIcon.src = "{{ asset('img/like_icon.svg') }}";
-            }
-          });
-        });
-      });
-    </script>
+    <script src="{{ asset('js/home.js') }}"></script>
   </body>
 </html>
