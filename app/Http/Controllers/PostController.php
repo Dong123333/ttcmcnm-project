@@ -12,46 +12,102 @@ class PostController extends Controller
 {
     public function store(Request $request)
     {
-        // Kiểm tra trạng thái đăng nhập
-        // if (!Auth::check()) {
-        //     return response()->json(['error' => 'Bạn cần đăng nhập để đăng bài'], 401);
-        // }
-
-        // Validate request
+        if (!Auth::check()) {
+            return redirect()->route('form_login')->with('error', 'Bạn cần đăng nhập để thực hiện hành động này.');
+        }
+    
         $request->validate([
             'content' => 'required|string|max:5000',
-            'media.*' => 'nullable|file|mimes:jpeg,png,jpg,gif,mp4|max:51200' // 50MB max for each file
+            'media.*' => 'nullable|file|mimes:jpeg,png,jpg,gif,mp4|max:51200'
         ]);
-
+    
         try {
-            $userId = 1;
-            // Save post content
+            $userId = Auth::id();
+    
             $post = Post::create([
-                'user_id' => $userId,//Auth::id(), // ID của người dùng hiện tại
+                'user_id' => $userId,
                 'content' => $request->content,
             ]);
-
-            // Handle media upload
+    
             if ($request->hasFile('media')) {
                 foreach ($request->file('media') as $file) {
-                    // Upload file lên Cloudinary
-                    $uploadedFileUrl = Cloudinary::upload($file->getRealPath(), [
+                    $uploadedFile = Cloudinary::upload($file->getRealPath(), [
                         'folder' => 'SocialNetwork'
-                    ])->getSecurePath();
-
-                    // Save media to database
+                    ]);
+            
                     Media::create([
                         'post_id' => $post->id,
                         'media_type' => $file->getMimeType() === 'video/mp4' ? 'video' : 'image',
-                        'media_url' => $uploadedFileUrl,
+                        'media_url' => $uploadedFile->getSecurePath(),
+                        'public_id' => $uploadedFile->getPublicId(), // Lưu giá trị public_id
                     ]);
                 }
             }
-
-            return redirect()->route('home')->with('success', 'Bài viết đã được đăng thành công!');
-
+    
+            return redirect()->route('posts.home')->with('success', 'Bài viết đã được đăng thành công!');
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Đã xảy ra lỗi khi đăng bài: ' . $e->getMessage()], 500);
+            return redirect()->route('posts.home')->with('error', 'Đã xảy ra lỗi khi đăng bài: ' . $e->getMessage());
+        }
+    }
+    public function edit($postId)
+    {
+        try {
+            // Lấy bài viết theo ID kèm theo media
+            $post = Post::with('media')->findOrFail($postId);
+
+            // Kiểm tra quyền sở hữu bài viết
+            if ($post->user_id !== Auth::id()) {
+                return redirect()->route('posts.home')->with('error', 'Bạn không có quyền chỉnh sửa bài viết này.');
+            }
+
+            return view('update_post', compact('post'));
+        } catch (\Exception $e) {
+            return redirect()->route('posts.home')->with('error', 'Không thể tải bài viết: ' . $e->getMessage());
+        }
+    }
+
+    public function update(Request $request, $postId)
+    {
+        $request->validate([
+            'content' => 'required|string|max:5000',
+            'media.*' => 'nullable|file|mimes:jpeg,png,jpg,gif,mp4|max:51200'
+        ]);
+    
+        try {
+            $post = Post::with('media')->findOrFail($postId);
+    
+            if ($post->user_id !== Auth::id()) {
+                return redirect()->route('posts.home')->with('error', 'Bạn không có quyền chỉnh sửa bài viết này.');
+            }
+    
+            $post->content = $request->content;
+            $post->save();
+    
+            if ($request->hasFile('media')) {
+                foreach ($post->media as $media) {
+                    if (!empty($media->public_id)) {
+                        Cloudinary::destroy($media->public_id); // Xóa trên Cloudinary
+                    }
+                    $media->delete(); // Xóa trong DB
+                }
+            
+                foreach ($request->file('media') as $file) {
+                    $uploadedFile = Cloudinary::upload($file->getRealPath(), [
+                        'folder' => 'SocialNetwork'
+                    ]);
+            
+                    Media::create([
+                        'post_id' => $post->id,
+                        'media_type' => $file->getMimeType() === 'video/mp4' ? 'video' : 'image',
+                        'media_url' => $uploadedFile->getSecurePath(),
+                        'public_id' => $uploadedFile->getPublicId(), // Lưu giá trị public_id
+                    ]);
+                }
+            }
+    
+            return redirect()->route('posts.home')->with('success', 'Bài viết đã được cập nhật thành công!');
+        } catch (\Exception $e) {
+            return redirect()->route('posts.home')->with('error', 'Đã xảy ra lỗi khi cập nhật bài viết: ' . $e->getMessage());
         }
     }
 }
