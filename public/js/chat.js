@@ -11,14 +11,18 @@ const messages = [
 
 // Function to display messages
 function renderMessages() {
-  chatMessages.innerHTML = "";
+  chatMessages.innerHTML = ""; // Clear current messages
   messages.forEach((msg) => {
     const messageDiv = document.createElement("div");
     messageDiv.classList.add("message", msg.type);
     messageDiv.innerText = msg.text;
-    chatMessages.appendChild(messageDiv);
+    chatMessages.prepend(messageDiv);
   });
   chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+// Function to scroll to the bottom of the chat
+function scrollToBottom() {
+  chatMessages.scrollTop = 0; // Đảo ngược chiều cuộn do column-reverse
 }
 
 // Send message
@@ -33,3 +37,4 @@ sendButton.addEventListener("click", () => {
 
 // Initial render
 renderMessages();
+scrollToBottom();
