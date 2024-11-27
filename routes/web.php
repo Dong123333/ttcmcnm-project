@@ -44,6 +44,7 @@ Route::group(['prefix' => 'posts', 'middleware' => 'check_user', 'as' => 'posts.
 
     Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
     Route::post('/{id}/update', [PostController::class, 'update'])->name('update');
+    Route::delete('/{postId}', [PostController::class, 'destroy'])->name('posts.destroy');
 });
 
 
