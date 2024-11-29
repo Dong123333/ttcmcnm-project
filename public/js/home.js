@@ -134,37 +134,4 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         document.getElementById("profile-form").submit();
     });
-
-    // Xử lý bài viết của bản thân
-    const currentUserId = document.body.getAttribute("data-user-id");
-
-    // Toggledropdown và các mục sửa/xóa
-    const toggleDropdownPost = (event) => {
-        const postElement = event.target.closest(".post");
-        const postOwnerId = postElement.getAttribute("data-post-owner-id");
-        const dropdownMenu = postElement.querySelector(".dropdown-menu-post");
-        const editPost = postElement.querySelector(".edit-post");
-        const deletePost = postElement.querySelector(".delete-post");
-
-        if (parseInt(postOwnerId) === currentUserId) {
-            editPost.style.display = "block";
-            deletePost.style.display = "block";
-        } else {
-            editPost.style.display = "none";
-            deletePost.style.display = "none";
-        }
-
-        dropdownMenu.classList.toggle("show");
-    };
-
-    document.addEventListener("click", (event) => {
-        if (
-            !event.target.closest(".post-header") &&
-            !event.target.closest(".dropdown-menu-post")
-        ) {
-            document
-                .querySelectorAll(".dropdown-menu-post")
-                .forEach((dropdown) => dropdown.classList.remove("show"));
-        }
-    });
 });

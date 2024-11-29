@@ -72,7 +72,7 @@
       <!-- Content -->
       <div class="main-content">
         @foreach($posts as $post)
-        <div class="post" data-post-owner-id="{{ $post->user_id }}">
+        <div class="post" data-post-id="{{ $post->id }}" data-post-owner-id="{{ $post->user_id }}">
           <div class="post-header">
             <img
               src="{{ $post->user->avatar }}"
@@ -91,8 +91,10 @@
             </span>
             <div class="dropdown-menu-post">
               <ul>
-                <li><a class="dropdown-item-post"><img src="{{ asset('images/pen_icon.svg') }}" alt=""><p>Sửa bài viết</p></a></li>
-                <li><a class="dropdown-item-post"><img src="{{ asset('images/trash_icon.svg') }}" alt=""><p>Xóa bài viết</p></a></li>
+                @if (Auth::user()->id == $post->user_id)
+                <li><a class="dropdown-item-post edit-post"><img src="{{ asset('images/pen_icon.svg') }}" alt=""><p>Sửa bài viết</p></a></li>
+                <li><a class="dropdown-item-post delete-post"><img src="{{ asset('images/trash_icon.svg') }}" alt=""><p>Xóa bài viết</p></a></li>
+                @endif
                 <li><a class="dropdown-item-post"><img src="{{ asset('images/save_icon copy.svg') }}" alt=""><p>Lưu bài viết</p></a></li>
               </ul>
             </div>
@@ -126,8 +128,8 @@
           <div class="profile">
             <img src="{{ Auth::user()->avatar ?? 'default-avatar.jpg' }}" alt="Profile" class="profile-img" />
             <div class="profile-info">
-                <h4 class="username">{{ Auth::user()->fullName }}</h4>
-                <p class="fullname">{{ Auth::user()->nickName }}</p>
+                <h4 class="username">{{ Auth::user()->nickName }}</h4>
+                <p class="fullname">{{ Auth::user()->fullName }}</p>
             </div>
           </div>
           @endif
