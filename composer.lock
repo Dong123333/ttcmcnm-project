@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
+    "content-hash": "4c4b9dcf68dc9e465faaa18b9f8e76d7",
+=======
     "content-hash": "1f025ed6597873b3abacb41064632323",
+>>>>>>> 143f147ac380064a356ff0c7de16d22e5e920bd6
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -185,6 +189,103 @@
                 }
             ],
             "time": "2024-02-09T16:56:22+00:00"
+        },
+        {
+            "name": "carlosocarvalho/flysystem-cloudinary",
+            "version": "v2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/carlosocarvalho/flysystem-cloudinary.git",
+                "reference": "f6275dbe16fb00461ded6dc75fe34b3ede220cf5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/carlosocarvalho/flysystem-cloudinary/zipball/f6275dbe16fb00461ded6dc75fe34b3ede220cf5",
+                "reference": "f6275dbe16fb00461ded6dc75fe34b3ede220cf5",
+                "shasum": ""
+            },
+            "require": {
+                "cloudinary/cloudinary_php": "^2.10",
+                "league/flysystem": "^3.14",
+                "php": ">=8.0.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/php-code-coverage": "9.2.*",
+                "phpunit/phpunit": "9.5.*",
+                "symfony/var-dumper": "^3.4.39",
+                "vlucas/phpdotenv": "^4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CarlosOCarvalho\\Flysystem\\Cloudinary\\": "src/",
+                    "CarlosOCarvalho\\Flysystem\\Cloudinary\\Test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "carlosocarvalho",
+                    "email": "carlosocarvalho.com.br@gmail.com",
+                    "homepage": "https://carlosocarvalho.com.br",
+                    "role": "Owner"
+                }
+            ],
+            "description": "Flysystem adapter for Cloudinary",
+            "homepage": "http://carlosocarvalho.github.io/flysystem-cloudinary",
+            "keywords": [
+                "Flysystem",
+                "cloudinary"
+            ],
+            "support": {
+                "issues": "https://github.com/carlosocarvalho/flysystem-cloudinary/issues",
+                "source": "https://github.com/carlosocarvalho/flysystem-cloudinary/tree/v2.0.4"
+            },
+            "time": "2023-04-25T19:39:03+00:00"
+        },
+        {
+            "name": "carlosocarvalho/storage-cloudinary-laravel",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/carlosocarvalho/laravel-storage-cloudinary.git",
+                "reference": "8aa89327c9be203be61eeac9c81cf9e230e10eee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/carlosocarvalho/laravel-storage-cloudinary/zipball/8aa89327c9be203be61eeac9c81cf9e230e10eee",
+                "reference": "8aa89327c9be203be61eeac9c81cf9e230e10eee",
+                "shasum": ""
+            },
+            "require": {
+                "carlosocarvalho/flysystem-cloudinary": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CarlosOCarvalho\\Providers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Carlos O Carvalho",
+                    "email": "quenduk@yahoo.com.br"
+                }
+            ],
+            "description": "Provider for laravel for Cloudinary",
+            "support": {
+                "issues": "https://github.com/carlosocarvalho/laravel-storage-cloudinary/issues",
+                "source": "https://github.com/carlosocarvalho/laravel-storage-cloudinary/tree/v2.0.0"
+            },
+            "time": "2022-03-24T13:39:07+00:00"
         },
         {
             "name": "cloudinary-labs/cloudinary-laravel",

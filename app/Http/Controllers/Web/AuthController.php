@@ -65,7 +65,7 @@ class AuthController extends Controller
             $user = Auth::user();
             session(['user' => $user]);
 
-            return redirect()->route('posts.home');
+            return redirect()->route('home');
         }
 
         return redirect()->route('form_login');
@@ -87,6 +87,7 @@ class AuthController extends Controller
             if (!$googleUser) {
                 return redirect()->route('form_login')->withErrors(['error' => 'Không thể lấy thông tin từ Google.']);
             }
+
             $isUser = $this->authService->handleGoogle($googleUser);
             if($isUser) {
                 return redirect()->route('posts.home');
@@ -116,7 +117,9 @@ class AuthController extends Controller
             $isUser = $this->authService->handleGithub($githubUser);
             if($isUser) {
                 return redirect()->route('posts.home');
-            } 
+            } else {
+                return redirect()->route('form_login');
+            }
 
         } catch (\Exception $e) {
             return redirect()->route('login')->withErrors(['error' => 'Không thể lấy thông tin từ GitHub']);

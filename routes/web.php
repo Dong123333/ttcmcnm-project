@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,10 +33,8 @@ Route::get('login/github/callback', [AuthController::class, 'handleGitHubCallbac
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('check_user');
 
 Route::group(['prefix' => 'posts', 'middleware' => 'check_user', 'as' => 'posts.'], function () {
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home');
-
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::post('/update-profile', [HomeController::class, 'updateProfile'])->name('user-update-profile');
     Route::get('/create', function () {
         return view('create_post');
     })->name('create');
@@ -43,6 +42,8 @@ Route::group(['prefix' => 'posts', 'middleware' => 'check_user', 'as' => 'posts.
     Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
     Route::post('/{id}/update', [PostController::class, 'update'])->name('update');
     Route::delete('/{postId}', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::view('/chat', 'chat');
+    
 });
 
 
