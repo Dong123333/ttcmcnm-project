@@ -32,7 +32,7 @@
                 >
               </li>
               <li>
-                <a href="/chat"
+                <a href="chat"
                   ><img src="{{ asset('images/chat_icon.svg') }}" alt="" />
                   <p>Tin Nhắn</p></a
                 >
@@ -44,8 +44,8 @@
                 >
               </li>
               <li>
-                <a href="{{ route('posts.create') }}"
-                  ><img src="{{ asset('images/plus_icon.svg') }}" alt="Cài Đặt" />
+                <a href="posts.store"
+                  ><img src="{{ asset('images/plus_icon.svg') }}" alt="Tạo bài viết" />
                   <p>Tạo</p></a
                 >
               </li>
@@ -265,12 +265,6 @@
                 <div class="modal-section">
                   <p class="section-title">Ảnh hồ sơ</p>
                   <div class="profile-image-container">
-                    <!-- <img
-                      id="profileImage"
-                      src="https://placehold.co/400x400"
-                      alt="Profile"
-                      class="profile-image"
-                    /> -->
                     <img id="profileImage" src="{{ Auth::user()->avatar ?? 'https://placehold.co/400x400' }}" alt="Profile" class="profile-image" />
                     <label for="edit" class="edit-icon">
                       <svg
@@ -326,7 +320,7 @@
                       onchange="handleImageChange(event)"
                       class="hidden"
                       name="avatar"
-                    />
+                    />  
                   </div>
                 </div>
                 <div class="modal-section">

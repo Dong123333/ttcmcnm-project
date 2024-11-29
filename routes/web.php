@@ -32,7 +32,7 @@ Route::get('login/github/callback', [AuthController::class, 'handleGitHubCallbac
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('check_user');
 
-Route::group(['prefix' => 'posts', 'middleware' => 'check_user', 'as' => 'posts.'], function () {
+Route::group([ 'middleware' => 'check_user'], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/update-profile', [HomeController::class, 'updateProfile'])->name('user-update-profile');
     Route::get('/create', function () {

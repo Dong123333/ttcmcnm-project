@@ -165,18 +165,18 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault(); // Ngừng hành động mặc định (submit)
             document.getElementById("profile-form").submit(); // Gửi form
         });
-
+    document
+        .getElementById("edit")
+        .addEventListener("change", handleImageChange);
     function handleImageChange(event) {
-        const file = event.target.files[0]; // Lấy tệp ảnh được chọn
-        const reader = new FileReader(); // Tạo một FileReader để đọc tệp ảnh
-
-        reader.onloadend = function () {
-            const imageUrl = reader.result;
-            document.getElementById("profileImage").src = imageUrl;
-        };
-
+        const file = event.target.files[0]; // Lấy file đã chọn
         if (file) {
-            reader.readAsDataURL(file); // Đọc ảnh như một URL Data
+            const reader = new FileReader(); // Tạo đối tượng FileReader
+            reader.onload = function (e) {
+                const profileImage = document.getElementById("profileImage");
+                profileImage.src = e.target.result; // Cập nhật thuộc tính src của ảnh
+            };
+            reader.readAsDataURL(file); // Đọc file dưới dạng URL
         }
     }
 });
