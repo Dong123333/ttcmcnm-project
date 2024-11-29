@@ -34,13 +34,11 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middle
 
 Route::group([ 'middleware' => 'check_user'], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::post('/update-profile', [HomeController::class, 'updateProfile'])->name('user-update-profile');
+    Route::post('/user-update-profile', [HomeController::class, 'updateProfile'])->name('user-update-profile');
     Route::get('/create', function () {
         return view('create_post');
     })->name('create');
-
     Route::post('/create', [PostController::class, 'store'])->name('store');
-
     Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
     Route::post('/{id}/update', [PostController::class, 'update'])->name('update');
     Route::delete('/{postId}', [PostController::class, 'destroy'])->name('posts.destroy');

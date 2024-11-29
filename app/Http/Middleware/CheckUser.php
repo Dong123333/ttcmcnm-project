@@ -17,7 +17,7 @@ class CheckUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check() && !session()->has('google_user') && !session()->has('github_user')) {
+        if (!Auth::check() || !Auth::user()->isActive ) {
             return redirect()->route('form_login');
         }
 

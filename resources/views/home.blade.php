@@ -72,7 +72,7 @@
       <!-- Content -->
       <div class="main-content">
         @foreach($posts as $post)
-        <div class="post">
+        <div class="post" data-post-owner-id="{{ $post->user_id }}">
           <div class="post-header">
             <img
               src="{{ $post->user->avatar }}"
@@ -98,13 +98,15 @@
             </div>
           </div>
           <div class="post-content">
-            <button class="slider-btn prev">❮</button>
-            <div class="slider-wrapper">
-              @foreach ($post->media as $media)
+            <!-- <button class="slider-btn prev">❮</button> -->
+            <div class="slider-wrapper" style="transform: translateX(0%);">
+            @foreach ($post->media as $media)        
+              <div class="image-wrapper" style="width: 100%; height: 100%; display: flex;">
                 <img src="{{ $media->media_url }}" alt="Post Image" class="post-img">
+              </div>
             @endforeach
             </div>
-            <button class="slider-btn next">❯</button>
+            <!-- <button class="slider-btn next">❯</button> -->
           </div>
           <div class="post-actions">
             <img src="{{ asset('images/like_icon.svg') }}" alt="Like" />
@@ -121,15 +123,15 @@
       <div class="account-info">
         <div class="profile-account">
           @if(Auth::check())
-              <div class="profile onclick="toggleDropdown()>
-                  <img src="{{ Auth::user()->avatar ?? 'default-avatar.jpg' }}" alt="Profile" class="profile-img" />
-                  <div class="profile-info">
-                      <p class="fullname">{{ Auth::user()->nickName }}</p>
-                      <h4 class="username">{{ Auth::user()->fullName }}</h4>
-
-                  </div>
-              </div>
-              <div id="dropdown-menu" class="dropdown-menu">
+          <div class="profile">
+            <img src="{{ Auth::user()->avatar ?? 'default-avatar.jpg' }}" alt="Profile" class="profile-img" />
+            <div class="profile-info">
+                <h4 class="username">{{ Auth::user()->fullName }}</h4>
+                <p class="fullname">{{ Auth::user()->nickName }}</p>
+            </div>
+          </div>
+          @endif
+            <div id="dropdown-menu" class="dropdown-menu">
                 <div class="dropdown-item">
                   <img src="{{ asset('images/user_icon.svg') }}" alt="">
                   <p>Thông tin cá nhân</p>
@@ -150,43 +152,7 @@
                     @csrf
                     <button type="submit" class="dropdown-item logout-button"><img src="{{ asset('images/logout_icon.svg') }}" alt=""><p>Đăng xuất</p></button>
                 </form>
-              </div>
-          @elseif(session('google_user'))
-            <div class="profile">
-                <img src="{{ session('google_user')->avatar }}" alt="Profile" class="profile-img" />
-                <div class="profile-info">
-                    <p class="fullname">{{ session('google_user')->email }}</p>
-                    <h4 class="username">{{ session('google_user')->name }}</h4>
-                </div>
             </div>
-          @elseif(session('github_user'))
-            <div class="profile">
-                    <img src="{{ session('github_user')->avatar }}" alt="Profile" class="profile-img" />
-                    <div class="profile-info">
-                        <p class="fullname">{{ session('github_user')->nickname }}</p>
-                        <h4 class="username">{{ session('github_user')->name }}</h4>
-                    </div>
-            </div>
-          @endif
-          <div id="dropdown-menu" class="dropdown-menu">
-            <div href="" class="dropdown-item">
-              <img src="{{ asset('images/global_icon.svg') }}" alt="">
-              <p>Ngôn ngữ</p>
-            </div>
-            <div href="" class="dropdown-item">
-              <img src="{{ asset('images/security_icon.svg') }}" alt="">
-              <p>Bảo mật</p>
-            </div>
-            <div href="" class="dropdown-item">
-              <img src="{{ asset('images/support_icon.svg') }}" alt="">
-              <p>Hỗ trợ</p>
-            </div>
-            <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                @csrf
-                <button type="submit" class="dropdown-item logout-button"><img src="{{ asset('images/logout_icon.svg') }}" alt=""><p>Đăng xuất</p></button>
-            </form>
-          </div>
-        </div>  
         <div class="header-contact">
             <h3>Người liên hệ</h3>
         </div>

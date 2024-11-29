@@ -1,81 +1,63 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Xử lý "Xem thêm" và "Ẩn bớt" trong mô tả bài viết
-    const showMoreButtons = document.querySelectorAll(".show-more");
-
-    showMoreButtons.forEach((button) => {
+    document.querySelectorAll(".show-more").forEach((button) => {
         button.addEventListener("click", function () {
             const postDescription = this.previousElementSibling;
-
-            if (postDescription.classList.contains("expanded")) {
-                postDescription.classList.remove("expanded");
-                this.textContent = "Xem thêm";
-                postDescription.style.display = "-webkit-box";
-            } else {
-                postDescription.classList.add("expanded");
-                this.textContent = "Ẩn bớt";
-                postDescription.style.display = "block";
-            }
+            const isExpanded = postDescription.classList.toggle("expanded");
+            this.textContent = isExpanded ? "Ẩn bớt" : "Xem thêm";
+            postDescription.style.display = isExpanded
+                ? "block"
+                : "-webkit-box";
         });
     });
 
     // Xử lý like/unlike icon
-    const likeIcons = document.querySelectorAll(
-        ".post-actions img:first-child",
-    );
-
-    likeIcons.forEach((likeIcon) => {
-        likeIcon.addEventListener("click", function () {
-            const currentIcon = this;
-
-            if (currentIcon.src.includes("like_icon.svg")) {
-                currentIcon.src = "images/likefull_icon.svg";
-            } else {
-                currentIcon.src = "images/like_icon.svg";
-            }
+    document
+        .querySelectorAll(".post-actions img:first-child")
+        .forEach((likeIcon) => {
+            likeIcon.addEventListener("click", function () {
+                this.src = this.src.includes("like_icon.svg")
+                    ? "images/likefull_icon.svg"
+                    : "images/like_icon.svg";
+            });
         });
-    });
 
     // Xử lý slider
     const sliderWrappers = document.querySelectorAll(".slider-wrapper");
 
     sliderWrappers.forEach((sliderWrapper) => {
         const images = sliderWrapper.querySelectorAll(".post-img");
-        const prevBtn =
-            sliderWrapper.parentElement.querySelector(".slider-btn.prev");
-        const nextBtn =
-            sliderWrapper.parentElement.querySelector(".slider-btn.next");
         let currentIndex = 0;
 
+        // Cập nhật vị trí slider
         const updateSlider = () => {
             sliderWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
         };
 
-        nextBtn.addEventListener("click", () => {
-            currentIndex = (currentIndex + 1) % images.length;
-            updateSlider();
+        // Thêm sự kiện click vào mỗi ảnh
+        images.forEach((img, index) => {
+            img.addEventListener("click", function () {
+                // Tăng hoặc giảm currentIndex khi click vào ảnh
+                currentIndex = (index + 1) % images.length;
+                updateSlider();
+            });
         });
 
-        prevBtn.addEventListener("click", () => {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            updateSlider();
-        });
-
+        // Đảm bảo ảnh chuyển vòng quanh (đến ảnh đầu khi đến ảnh cuối)
         updateSlider();
     });
 
     // Xử lý Dropdown Menu cho profile-account
     const profileAccount = document.querySelector(".profile-account");
     const dropdownMenu = document.getElementById("dropdown-menu");
-
     if (profileAccount && dropdownMenu) {
-        profileAccount.addEventListener("click", function (event) {
-            event.stopPropagation(); // Ngăn sự kiện lan truyền
-
+        profileAccount.addEventListener("click", (event) => {
+            event.stopPropagation();
             dropdownMenu.style.display =
                 dropdownMenu.style.display === "block" ? "none" : "block";
         });
 
-        window.addEventListener("click", function (event) {
+        window.addEventListener("click", (event) => {
             if (
                 !profileAccount.contains(event.target) &&
                 !dropdownMenu.contains(event.target)
@@ -85,98 +67,104 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Hàm mở modal
-    function openModal() {
-        if (
-            !document.body.classList.contains("google-user") &&
-            !document.body.classList.contains("github-user")
-        ) {
-            document.querySelector(".modal-container").style.display = "flex";
-        }
-    }
-
-    // Hàm đóng modal
-    document.querySelector(".btn-cancel").addEventListener("click", closeModal);
-
-    function closeModal() {
+    // Hàm mở/đóng modal
+    const toggleModal = (action) => {
         const modalContainer = document.querySelector(".modal-container");
-        if (modalContainer) {
+        if (action === "open") {
+            if (
+                !document.body.classList.contains("google-user") &&
+                !document.body.classList.contains("github-user")
+            ) {
+                modalContainer.style.display = "flex";
+            }
+        } else {
             modalContainer.style.display = "none";
         }
-    }
+    };
 
-    // Thêm sự kiện vào phần tử "Thông tin cá nhân"
+    document
+        .querySelector(".btn-cancel")
+        .addEventListener("click", () => toggleModal("close"));
+    document
+        .querySelector(".modal-close")
+        .addEventListener("click", () => toggleModal("close"));
+
     document.querySelectorAll(".dropdown-item").forEach((item) => {
         item.addEventListener("click", (e) => {
-            if (
-                e.target &&
-                e.target.textContent.trim() === "Thông tin cá nhân"
-            ) {
-                openModal(); // Mở modal
+            if (e.target.textContent.trim() === "Thông tin cá nhân") {
+                toggleModal("open");
             }
         });
     });
 
-    // Thêm sự kiện đóng modal khi nhấn vào nút "✖"
-    document
-        .querySelector(".modal-close")
-        .addEventListener("click", closeModal);
-
-    // Tìm tất cả các biểu tượng ba chấm
-    const threeDotsIcons = document.querySelectorAll(".three-dots-icon");
-
-    // Thêm sự kiện click vào mỗi biểu tượng ba chấm
-    threeDotsIcons.forEach((icon) => {
+    // Xử lý dropdown menu ba chấm
+    document.querySelectorAll(".three-dots-icon").forEach((icon) => {
         icon.addEventListener("click", function (event) {
-            // Ngừng sự kiện lan truyền để ngăn không đóng dropdown ngay lập tức
             event.stopPropagation();
-
-            // Lấy dropdown menu liên quan đến biểu tượng ba chấm đã nhấn
             const dropdownMenuPost = this.closest(".post-header").querySelector(
                 ".dropdown-menu-post",
             );
-
-            // Kiểm tra và thay đổi trạng thái hiển thị của dropdown menu
-            if (dropdownMenuPost.style.display === "block") {
-                dropdownMenuPost.style.display = "none"; // Nếu đang mở thì đóng
-            } else {
-                dropdownMenuPost.style.display = "block"; // Nếu đang đóng thì mở
-            }
+            dropdownMenuPost.style.display =
+                dropdownMenuPost.style.display === "block" ? "none" : "block";
         });
     });
 
-    // Đóng dropdown menu khi click ra ngoài
     document.addEventListener("click", function (event) {
-        const dropdownMenus = document.querySelectorAll(".dropdown-menu-post");
-        dropdownMenus.forEach(function (dropdown) {
+        document.querySelectorAll(".dropdown-menu-post").forEach((dropdown) => {
             if (
                 !dropdown.contains(event.target) &&
                 !event.target.matches(".three-dots-icon")
             ) {
-                dropdown.style.display = "none"; // Đóng menu nếu click ngoài
+                dropdown.style.display = "none";
             }
         });
     });
 
-    // Xử lý nhấn nút lưu để load ảnh và thông tin
-    document
-        .querySelector(".btn-save")
-        .addEventListener("click", function (event) {
-            event.preventDefault(); // Ngừng hành động mặc định (submit)
-            document.getElementById("profile-form").submit(); // Gửi form
-        });
-    document
-        .getElementById("edit")
-        .addEventListener("change", handleImageChange);
-    function handleImageChange(event) {
-        const file = event.target.files[0]; // Lấy file đã chọn
-        if (file) {
-            const reader = new FileReader(); // Tạo đối tượng FileReader
-            reader.onload = function (e) {
-                const profileImage = document.getElementById("profileImage");
-                profileImage.src = e.target.result; // Cập nhật thuộc tính src của ảnh
-            };
-            reader.readAsDataURL(file); // Đọc file dưới dạng URL
+    // Xử lý thay đổi ảnh trong modal
+    document.getElementById("edit").addEventListener("change", (event) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            document.getElementById("profileImage").src = e.target.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
+    // Xử lý lưu form profile
+    document.querySelector(".btn-save").addEventListener("click", (event) => {
+        event.preventDefault();
+        document.getElementById("profile-form").submit();
+    });
+
+    // Xử lý bài viết của bản thân
+    const currentUserId = document.body.getAttribute("data-user-id");
+
+    // Toggledropdown và các mục sửa/xóa
+    const toggleDropdownPost = (event) => {
+        const postElement = event.target.closest(".post");
+        const postOwnerId = postElement.getAttribute("data-post-owner-id");
+        const dropdownMenu = postElement.querySelector(".dropdown-menu-post");
+        const editPost = postElement.querySelector(".edit-post");
+        const deletePost = postElement.querySelector(".delete-post");
+
+        if (parseInt(postOwnerId) === currentUserId) {
+            editPost.style.display = "block";
+            deletePost.style.display = "block";
+        } else {
+            editPost.style.display = "none";
+            deletePost.style.display = "none";
         }
-    }
+
+        dropdownMenu.classList.toggle("show");
+    };
+
+    document.addEventListener("click", (event) => {
+        if (
+            !event.target.closest(".post-header") &&
+            !event.target.closest(".dropdown-menu-post")
+        ) {
+            document
+                .querySelectorAll(".dropdown-menu-post")
+                .forEach((dropdown) => dropdown.classList.remove("show"));
+        }
+    });
 });

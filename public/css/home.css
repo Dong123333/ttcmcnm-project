@@ -60,13 +60,11 @@ body {
     color: #0095f6;
 }
 
-/* .sidebar .menu li:last-child {
-  } */
-
 .sidebar .menu li a .profile-img-side3 {
     width: 25px;
     height: 25px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 /* Main content */
@@ -99,6 +97,7 @@ body {
     height: 50px;
     border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
 }
 
 .three-dots-icon {
@@ -180,7 +179,7 @@ body {
     z-index: 10;
     background-color: transparent;
     outline: none;
-    color: #333;
+    color: #fff;
 }
 
 .slider-btn.prev {
@@ -191,10 +190,10 @@ body {
     right: 10px;
 }
 .post-img {
-    border-radius: 10px;
-    width: 100%;
-    height: 100%;
+    width: 400px;
+    height: 500px;
     object-fit: contain;
+    border-radius: 10px;
 }
 
 .post-actions {
@@ -261,6 +260,7 @@ body {
     height: 50px;
     border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
 }
 
 .profile-info {
@@ -278,7 +278,7 @@ body {
 .dropdown-menu {
     display: none; /* Ẩn menu ban đầu */
     position: absolute;
-    top: 110%; /* Đặt menu dưới profile */
+    top: 15%; /* Đặt menu dưới profile */
     right: 0;
     background-color: #333;
     color: #fff;
