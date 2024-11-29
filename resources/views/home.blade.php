@@ -44,7 +44,7 @@
                 >
               </li>
               <li>
-                <a href="/create-post"
+                <a href="{{ route('posts.create') }}"
                   ><img src="{{ asset('images/plus_icon.svg') }}" alt="Cài Đặt" />
                   <p>Tạo</p></a
                 >

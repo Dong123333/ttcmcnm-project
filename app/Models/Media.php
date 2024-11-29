@@ -9,8 +9,12 @@ class Media extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['post_id', 'media_type', 'media_url'];
-
+    protected $fillable = [
+        'post_id',
+        'media_type',
+        'media_url',
+        'public_id',
+    ];
     protected $primaryKey = 'id';
 
     public $incrementing = true;

@@ -14,6 +14,7 @@ class CreateMediaTable extends Migration
             $table->enum('media_type', ['image', 'video']);
             $table->string('media_url');
             $table->timestamps();
+            $table->string('public_id', 255)->nullable();
 
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
