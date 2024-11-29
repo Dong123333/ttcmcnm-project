@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Xử lý "Xem thêm" và "Ẩn bớt" trong mô tả bài viết
     const showMoreButtons = document.querySelectorAll(".show-more");
 
     showMoreButtons.forEach((button) => {
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    // Xử lý like/unlike icon
     const likeIcons = document.querySelectorAll(
         ".post-actions img:first-child",
     );
@@ -33,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    // Xử lý slider
     const sliderWrappers = document.querySelectorAll(".slider-wrapper");
 
     sliderWrappers.forEach((sliderWrapper) => {
@@ -59,4 +62,121 @@ document.addEventListener("DOMContentLoaded", function () {
 
         updateSlider();
     });
+
+    // Xử lý Dropdown Menu cho profile-account
+    const profileAccount = document.querySelector(".profile-account");
+    const dropdownMenu = document.getElementById("dropdown-menu");
+
+    if (profileAccount && dropdownMenu) {
+        profileAccount.addEventListener("click", function (event) {
+            event.stopPropagation(); // Ngăn sự kiện lan truyền
+
+            dropdownMenu.style.display =
+                dropdownMenu.style.display === "block" ? "none" : "block";
+        });
+
+        window.addEventListener("click", function (event) {
+            if (
+                !profileAccount.contains(event.target) &&
+                !dropdownMenu.contains(event.target)
+            ) {
+                dropdownMenu.style.display = "none";
+            }
+        });
+    }
+
+    // Hàm mở modal
+    function openModal() {
+        if (
+            !document.body.classList.contains("google-user") &&
+            !document.body.classList.contains("github-user")
+        ) {
+            document.querySelector(".modal-container").style.display = "flex";
+        }
+    }
+
+    // Hàm đóng modal
+    document.querySelector(".btn-cancel").addEventListener("click", closeModal);
+
+    function closeModal() {
+        const modalContainer = document.querySelector(".modal-container");
+        if (modalContainer) {
+            modalContainer.style.display = "none";
+        }
+    }
+
+    // Thêm sự kiện vào phần tử "Thông tin cá nhân"
+    document.querySelectorAll(".dropdown-item").forEach((item) => {
+        item.addEventListener("click", (e) => {
+            if (
+                e.target &&
+                e.target.textContent.trim() === "Thông tin cá nhân"
+            ) {
+                openModal(); // Mở modal
+            }
+        });
+    });
+
+    // Thêm sự kiện đóng modal khi nhấn vào nút "✖"
+    document
+        .querySelector(".modal-close")
+        .addEventListener("click", closeModal);
+
+    // Tìm tất cả các biểu tượng ba chấm
+    const threeDotsIcons = document.querySelectorAll(".three-dots-icon");
+
+    // Thêm sự kiện click vào mỗi biểu tượng ba chấm
+    threeDotsIcons.forEach((icon) => {
+        icon.addEventListener("click", function (event) {
+            // Ngừng sự kiện lan truyền để ngăn không đóng dropdown ngay lập tức
+            event.stopPropagation();
+
+            // Lấy dropdown menu liên quan đến biểu tượng ba chấm đã nhấn
+            const dropdownMenuPost = this.closest(".post-header").querySelector(
+                ".dropdown-menu-post",
+            );
+
+            // Kiểm tra và thay đổi trạng thái hiển thị của dropdown menu
+            if (dropdownMenuPost.style.display === "block") {
+                dropdownMenuPost.style.display = "none"; // Nếu đang mở thì đóng
+            } else {
+                dropdownMenuPost.style.display = "block"; // Nếu đang đóng thì mở
+            }
+        });
+    });
+
+    // Đóng dropdown menu khi click ra ngoài
+    document.addEventListener("click", function (event) {
+        const dropdownMenus = document.querySelectorAll(".dropdown-menu-post");
+        dropdownMenus.forEach(function (dropdown) {
+            if (
+                !dropdown.contains(event.target) &&
+                !event.target.matches(".three-dots-icon")
+            ) {
+                dropdown.style.display = "none"; // Đóng menu nếu click ngoài
+            }
+        });
+    });
+
+    // Xử lý nhấn nút lưu để load ảnh và thông tin
+    document
+        .querySelector(".btn-save")
+        .addEventListener("click", function (event) {
+            event.preventDefault(); // Ngừng hành động mặc định (submit)
+            document.getElementById("profile-form").submit(); // Gửi form
+        });
+
+    function handleImageChange(event) {
+        const file = event.target.files[0]; // Lấy tệp ảnh được chọn
+        const reader = new FileReader(); // Tạo một FileReader để đọc tệp ảnh
+
+        reader.onloadend = function () {
+            const imageUrl = reader.result;
+            document.getElementById("profileImage").src = imageUrl;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file); // Đọc ảnh như một URL Data
+        }
+    }
 });

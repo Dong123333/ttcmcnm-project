@@ -65,7 +65,7 @@ class AuthController extends Controller
             $user = Auth::user();
             session(['user' => $user]);
 
-            return redirect()->route('posts.home');
+            return redirect()->route('home');
         }
 
         return redirect()->route('form_login');
@@ -92,7 +92,7 @@ class AuthController extends Controller
 
             session(['google_user' => $googleUser]);
 
-            return redirect()->route('posts.home');
+            return redirect()->route('home');
         } catch (\Exception $e) {
             return redirect()->route('form_login')->withErrors(['error' => 'Đăng nhập với Google thất bại.']);
         }
@@ -115,7 +115,7 @@ class AuthController extends Controller
             }
             Auth::loginUsingId($githubUser->getId());
             session(['github_user' => $githubUser]);
-            return redirect()->route('posts.home');
+            return redirect()->route('home');
 
         } catch (\Exception $e) {
             return redirect()->route('login')->withErrors(['error' => 'Không thể lấy thông tin từ GitHub']);

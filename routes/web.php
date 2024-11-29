@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Web\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\GetPostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,10 +32,13 @@ Route::get('login/github/callback', [AuthController::class, 'handleGitHubCallbac
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('check_user');
 
-Route::group(['prefix' => 'posts', 'middleware' => 'check_user', 'as' => 'posts.'], function () {
-    Route::view('/home', 'home')->name('home');
+
+Route::group([ 'middleware' => 'check_user'], function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::post('/update-profile', [HomeController::class, 'updateProfile'])->name('user-update-profile');
     Route::view('/create-post', 'Create_post');
     Route::view('/update-post', 'Update_post');
     Route::view('/chat', 'chat');
+
 });
 
