@@ -90,7 +90,7 @@ class AuthController extends Controller
 
             $isUser = $this->authService->handleGoogle($googleUser);
             if($isUser) {
-                return redirect()->route('posts.home');
+                return redirect()->route('home');
             }else {
                 return redirect()->route('form_login');
             }
@@ -116,7 +116,7 @@ class AuthController extends Controller
             }
             $isUser = $this->authService->handleGithub($githubUser);
             if($isUser) {
-                return redirect()->route('posts.home');
+                return redirect()->route('home');
             } else {
                 return redirect()->route('form_login');
             }

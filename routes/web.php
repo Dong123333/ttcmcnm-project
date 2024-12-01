@@ -4,6 +4,8 @@ use App\Http\Controllers\Web\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ChatController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,7 +34,7 @@ Route::get('login/github/callback', [AuthController::class, 'handleGitHubCallbac
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('check_user');
 
-Route::group([ 'middleware' => 'check_user'], function () {
+Route::group(['middleware' => 'check_user'], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::post('/user-update-profile', [HomeController::class, 'updateProfile'])->name('user-update-profile');
     Route::get('/create', function () {
@@ -42,8 +44,24 @@ Route::group([ 'middleware' => 'check_user'], function () {
     Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
     Route::post('/{id}/update', [PostController::class, 'update'])->name('update');
     Route::delete('/{postId}', [PostController::class, 'destroy'])->name('posts.destroy');
-    Route::view('/chat', 'chat');
-    
+    // Route::view('/chat', 'chat');
+
+
+    // Route::get('/messages', function() {
+    //     return App\Models\Message::with('user')->get();
+    // });
+
+    // Route::post('/messages', function() {
+    //     $user = Auth::user();
+
+    // $message = new App\Models\Message();
+    // $message->message = request()->get('content', '');
+    // $message->user_id = $user->id;
+    // $message->save();
+
+    // return ['message' => $message->load('user')];
+    // });
+    Route::get('/chat', [ChatController::class, 'chat']);
+    Route::post('/broadcast', [ChatController::class, 'broadcast']);
+    Route::get('/messages/{receiverId}', [ChatController::class, 'fetchMessages']);
 });
-
-
