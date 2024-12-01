@@ -44,7 +44,7 @@
                 >
               </li>
               <li>
-                <a href="posts.store"
+                <a href="{{ route('create') }}"
                   ><img src="{{ asset('images/plus_icon.svg') }}" alt="Tạo bài viết" />
                   <p>Tạo</p></a
                 >
@@ -92,8 +92,22 @@
             <div class="dropdown-menu-post">
               <ul>
                 @if (Auth::user()->id == $post->user_id)
-                <li><a class="dropdown-item-post edit-post"><img src="{{ asset('images/pen_icon.svg') }}" alt=""><p>Sửa bài viết</p></a></li>
-                <li><a class="dropdown-item-post delete-post"><img src="{{ asset('images/trash_icon.svg') }}" alt=""><p>Xóa bài viết</p></a></li>
+                <li>
+                  <a class="dropdown-item-post edit-post" href="{{ route('edit', ['id' => $post->id]) }}">
+                    <img src="{{ asset('images/pen_icon.svg') }}" alt="">
+                    <p>Sửa bài viết</p>
+                  </a>
+                </li>
+                <li>
+                <form action="{{ route('posts.destroy', ['postId' => $post->id]) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này?');">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="dropdown-item-post delete-post" style="background: none; border: none; padding: 0; cursor: pointer;">
+                      <img src="{{ asset('images/trash_icon.svg') }}" alt="">
+                      <p>Xóa bài viết</p>
+                  </button>
+                </form>
+                </li>
                 @endif
                 <li><a class="dropdown-item-post"><img src="{{ asset('images/save_icon copy.svg') }}" alt=""><p>Lưu bài viết</p></a></li>
               </ul>

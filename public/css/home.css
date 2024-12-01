@@ -131,26 +131,62 @@ body {
 .dropdown-item-post {
     display: flex;
     align-items: center;
-    padding: 8px 12px;
+    padding: 10px 12px;
     text-decoration: none;
     color: #333;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .dropdown-item-post img {
     width: 20px;
     height: 20px;
     margin-right: 10px;
+    vertical-align: middle;
 }
 
 .dropdown-item-post p {
     margin: 0;
+    font-size: 14px;
+    line-height: 18px;
 }
 
 .dropdown-item-post:hover {
-    background-color: #f1f1f1;
-    cursor: pointer;
+    
     border-radius: 4px;
     color: #0095f6;
+}
+
+.delete-post:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+    color: #e60023;
+    border-radius: 4px;
+}
+
+.delete-post {
+    display: flex;
+    align-items: center;
+    color: #333;
+    padding: 10px 12px;
+    margin-left: 11px;
+    font-size: 14px;
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+.delete-post img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.dropdown-menu-post ul li {
+    margin: 0;
 }
 
 .post-content {
