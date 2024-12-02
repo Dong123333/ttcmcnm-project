@@ -35,7 +35,7 @@ class ChatController extends Controller
         ]);
 
         broadcast(new MessageSent($message))->toOthers();
-        return view('broadcast', ['message' => $message]);
+        return response()->json($message);
     }
 
     public function fetchMessages($receiverId)

@@ -15,13 +15,14 @@
         </div>
 
         <div class="modal-body">
-            <!-- Thông tin người dùng -->
+            @if(Auth::check())
             <div class="user-info">
-                <img src="{{ asset('images/person.png') }}" alt="User Avatar">
+                <img src="{{ Auth::user()->avatar }}" alt="User Avatar">
                 <div class="user-details">
-                    <strong>Đỗ Trần Tuyến</strong>
+                    <strong>{{ Auth::user()->fullName }}</strong>
                 </div>
             </div>
+            @endif
 
             <!-- Nội dung bài viết -->
             <textarea name="content" placeholder="Bạn đang nghĩ gì?" required>{{ $post->content }}</textarea>

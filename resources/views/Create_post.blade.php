@@ -11,16 +11,18 @@
         @csrf
         <div class="modal-header">
             <span class="modal-title">Tạo bài viết mới</span>
-            <button type="button" class="btn-close" onclick="alert('Đóng modal')">✖</button>
+            <button type="button" class="btn-close" onclick="handleClose()">✖</button>
         </div>
-
+        
         <div class="modal-body">
+            @if(Auth::check())
             <div class="user-info">
-                <img src="https://placehold.co/400x400" alt="User Avatar">
+                <img src="{{ Auth::user()->avatar }}" alt="User Avatar">
                 <div class="user-details">
-                    <strong>Đỗ Trần Tuyến</strong>
+                    <strong>{{ Auth::user()->fullName }}</strong>
                 </div>
             </div>
+            @endif
 
             <textarea name="content" placeholder="Bạn đang nghĩ gì?" required></textarea>
 

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat Interface</title>
+  <title>Nhắn tin</title>
   <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
   <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -47,7 +47,7 @@
           <!-- Chat Header -->
           <div class="chat-header">
             <div class="chat-header-left">
-              <img src="" alt="Avatar" class="chat-avatar" id="chat-header-avatar">
+              <img src="https://placehold.co/400x400/png" alt="Avatar" class="chat-avatar" id="chat-header-avatar">
               <div class="chat-user-info">
                 <p class="chat-username" id="chat-header-username">Select a contact</p>
                 <p class="chat-nickname" id="chat-header-nickname">...</p>
@@ -75,7 +75,6 @@
               <input type="text" id="message-input" placeholder="Type a message...">
               <button id="send-button">Send</button>
             </form>
-
           </div>
         </div>
       </div>
@@ -140,7 +139,7 @@
           $.post('/broadcast', {
             receiver_id: receiverId,
             content: messageContent,
-            _token: '{{ csrf_token() }}'
+            _token: '{{ csrf_token() }}',
           }).done(function(response) {
             // appendMessage(userId, messageContent); // Hiển thị tin nhắn của bản thân
             messageInput.value = ''; // Reset input

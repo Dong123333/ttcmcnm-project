@@ -27,28 +27,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
     sliderWrappers.forEach((sliderWrapper) => {
         const images = sliderWrapper.querySelectorAll(".post-img");
-        let currentIndex = 0;
+        const dotsContainer =
+            sliderWrapper.parentElement.querySelector(".post-dot");
+        if (!dotsContainer) return;
+        const dots = dotsContainer.querySelectorAll(".dot"); // Các dấu chấm
+        let currentIndex = 0; // Chỉ số ảnh hiện tại
 
-        // Cập nhật vị trí slider
+        // Cập nhật vị trí slider (chuyển ảnh)
         const updateSlider = () => {
             sliderWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+        };
+
+        // Cập nhật dấu chấm (đổi màu cho dấu chấm active)
+        const updateDots = () => {
+            // Xóa lớp 'active' khỏi tất cả các dấu chấm
+            dots.forEach((dot) => dot.classList.remove("active"));
+            // Thêm lớp 'active' vào dấu chấm tương ứng với ảnh hiện tại
+            if (dots[currentIndex]) {
+                dots[currentIndex].classList.add("active");
+            }
         };
 
         // Thêm sự kiện click vào mỗi ảnh
         images.forEach((img, index) => {
             img.addEventListener("click", function () {
-                // Tăng hoặc giảm currentIndex khi click vào ảnh
-                currentIndex = (index + 1) % images.length;
+                currentIndex = (index + 1) % images.length; // Tăng hoặc giảm chỉ số ảnh
                 updateSlider();
+                updateDots(); // Cập nhật dấu chấm khi thay đổi ảnh
+            });
+        });
+
+        // Thêm sự kiện click vào các dấu chấm
+        dots.forEach((dot, index) => {
+            dot.addEventListener("click", function () {
+                currentIndex = index; // Cập nhật currentIndex khi click vào dot
+                updateSlider();
+                updateDots(); // Cập nhật dấu chấm khi click vào dot
             });
         });
 
         // Đảm bảo ảnh chuyển vòng quanh (đến ảnh đầu khi đến ảnh cuối)
         updateSlider();
+        updateDots(); // Đảm bảo dấu chấm được hiển thị chính xác ngay từ đầu
     });
 
     // Xử lý Dropdown Menu cho profile-account
-    const profileAccount = document.querySelector(".profile-account");
+    const profileAccount = document.querySelector(".profile");
     const dropdownMenu = document.getElementById("dropdown-menu");
     if (profileAccount && dropdownMenu) {
         profileAccount.addEventListener("click", (event) => {

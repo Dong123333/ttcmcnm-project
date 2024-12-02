@@ -32,8 +32,11 @@ class HomeController extends Controller
     }
     public function index()
     {
-        $posts = $this->homeService->getList();
+        $data = $this->homeService->getList();
 
-        return view('home', ['posts' => $posts]);
+        return view('home', [
+            'users' => $data['users'],  
+            'posts' => $data['posts'], 
+        ]);
     }
 }

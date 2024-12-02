@@ -152,7 +152,6 @@ body {
 }
 
 .dropdown-item-post:hover {
-    
     border-radius: 4px;
     color: #0095f6;
 }
@@ -196,6 +195,29 @@ body {
     max-width: 400px;
     margin: auto;
     overflow: hidden;
+}
+
+.post-dot {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    z-index: 1;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+    margin: 0 3px;
+    background-color: #666666;
+    border-radius: 100%;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #fff;
 }
 
 .slider-wrapper {
@@ -314,7 +336,7 @@ body {
 .dropdown-menu {
     display: none; /* Ẩn menu ban đầu */
     position: absolute;
-    top: 15%; /* Đặt menu dưới profile */
+    top: 23%; /* Đặt menu dưới profile */
     right: 0;
     background-color: #333;
     color: #fff;

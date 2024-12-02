@@ -17,7 +17,7 @@ use App\Http\Controllers\ChatController;
 |
 */
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('form_login');
+Route::get('/', [AuthController::class, 'showLoginForm'])->name('form_login');
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::get('/signup', [AuthController::class, 'showSignupForm'])->name('signup');
@@ -44,23 +44,6 @@ Route::group(['middleware' => 'check_user'], function () {
     Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
     Route::post('/{id}/update', [PostController::class, 'update'])->name('update');
     Route::delete('/{postId}', [PostController::class, 'destroy'])->name('posts.destroy');
-    // Route::view('/chat', 'chat');
-
-
-    // Route::get('/messages', function() {
-    //     return App\Models\Message::with('user')->get();
-    // });
-
-    // Route::post('/messages', function() {
-    //     $user = Auth::user();
-
-    // $message = new App\Models\Message();
-    // $message->message = request()->get('content', '');
-    // $message->user_id = $user->id;
-    // $message->save();
-
-    // return ['message' => $message->load('user')];
-    // });
     Route::get('/chat', [ChatController::class, 'chat']);
     Route::post('/broadcast', [ChatController::class, 'broadcast']);
     Route::get('/messages/{receiverId}', [ChatController::class, 'fetchMessages']);

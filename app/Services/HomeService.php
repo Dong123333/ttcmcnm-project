@@ -6,7 +6,7 @@ use App\Models\Post;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-
+use Illuminate\Support\Facades\Auth;
 
 class HomeService {
     protected $user;
@@ -23,14 +23,14 @@ class HomeService {
         try {   
             $user = auth()->user();
             if (!$user) {
-                // Trường hợp không tìm thấy người dùng
                 throw new \Exception('Không tìm thấy người dùng');
             }  
 
             if (isset($params['avatar'])) {
                 // Upload ảnh lên Cloudinary
                 $uploadedFile = Cloudinary::upload($params['avatar']->getRealPath(), [
-                    'folder' => 'avatars/', // Thư mục lưu ảnh
+                    'folder' => 'avatars/',
+                    'verify' => false,
                 ]);
 
                 // Lấy URL ảnh sau khi upload
@@ -53,7 +53,14 @@ class HomeService {
             return false;
         }
     }
+    
     public function getList(){
-        return $this->post->with('user', 'media')->get();
+        $currentUserId = Auth::id();
+        $users = $this->user->where('id', '!=', $currentUserId)->get();
+        $posts = $this->post->with('user', 'media')->get();
+        return [
+            'users' => $users,
+            'posts' => $posts
+        ];
     }
 }

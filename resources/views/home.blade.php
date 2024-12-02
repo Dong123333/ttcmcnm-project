@@ -44,7 +44,7 @@
                 >
               </li>
               <li>
-                <a href="{{ route('posts.create') }}"
+                <a href="{{ route('create') }}"
                   ><img src="{{ asset('images/plus_icon.svg') }}" alt="Cài Đặt" />
                   <p>Tạo</p></a
                 >
@@ -114,15 +114,20 @@
             </div>
           </div>
           <div class="post-content">
-            <!-- <button class="slider-btn prev">❮</button> -->
             <div class="slider-wrapper" style="transform: translateX(0%);">
-            @foreach ($post->media as $media)        
+            @foreach ($post->media as $index => $media)        
               <div class="image-wrapper" style="width: 100%; height: 100%; display: flex;">
-                <img src="{{ $media->media_url }}" alt="Post Image" class="post-img">
+                <img src="{{ $media->media_url }}" alt="Post Image" class="post-img" data-index="{{ $index }}">
               </div>
             @endforeach
             </div>
-            <!-- <button class="slider-btn next">❯</button> -->
+            @if($post->media->count() > 1)
+                  <div class="post-dot">
+                      @for($i = 0; $i < $post->media->count(); $i++) 
+                        <div class="dot" data-index="{{ $i }}"></div>
+                      @endfor
+                  </div>
+            @endif
           </div>
           <div class="post-actions">
             <img src="{{ asset('images/like_icon.svg') }}" alt="Like" />
@@ -148,7 +153,7 @@
             </div>
           </div>
           @endif
-            <div id="dropdown-menu" class="dropdown-menu">
+          <div id="dropdown-menu" class="dropdown-menu">
                 <div class="dropdown-item">
                   <img src="{{ asset('images/user_icon.svg') }}" alt="">
                   <p>Thông tin cá nhân</p>
@@ -169,53 +174,20 @@
                     @csrf
                     <button type="submit" class="dropdown-item logout-button"><img src="{{ asset('images/logout_icon.svg') }}" alt=""><p>Đăng xuất</p></button>
                 </form>
-            </div>
+          </div>
         <div class="header-contact">
             <h3>Người liên hệ</h3>
         </div>
         <ul class="contact-list">
+          @foreach($users as $user)
           <li class="contact-item online">
-            <img src="https://placehold.co/40x40/png?text=Image+1" alt="Avatar" class="avatar" />
+            <img src="{{ $user->avatar }}" alt="Avatar" class="avatar" />
             <div class="contact-info">
-              <span class="contact-name">Nguyễn Thị Trà My</span>
-              <span class="contact-status">Trực tuyến</span>
+              <span class="contact-name">{{ $user->fullName }}</span>
+              
             </div>
           </li>
-          <li class="contact-item online">
-            <img src="https://placehold.co/40x40/png?text=Image+1" alt="Avatar" class="avatar" />
-            <div class="contact-info">
-              <span class="contact-name">Giang Nam</span>
-              <span class="contact-status">Trực tuyến</span>
-            </div>
-          </li>
-          <li class="contact-item online">
-            <img src="https://placehold.co/40x40/png?text=Image+1" alt="Avatar" class="avatar" />
-            <div class="contact-info">
-              <span class="contact-name">Hồ Bá Đông</span>
-              <span class="contact-status">Trực tuyến</span>
-            </div>
-          </li>
-          <li class="contact-item offline">
-            <img src="https://placehold.co/40x40/png?text=Image+1" alt="Avatar" class="avatar" />
-            <div class="contact-info">
-              <span class="contact-name">Nguyễn Thị Lan Ánh</span>
-              <span class="contact-status">Ngoại tuyến</span>
-            </div>
-          </li>
-          <li class="contact-item offline">
-            <img src="https://placehold.co/40x40/png?text=Image+2" alt="Avatar" class="avatar" />
-            <div class="contact-info">
-              <span class="contact-name">Dang Anh Thu</span>
-              <span class="contact-status">Ngoại tuyến</span>
-            </div>
-          </li>
-          <li class="contact-item offline">
-            <img src="https://placehold.co/40x40/png?text=Image+1" alt="Avatar" class="avatar" />
-            <div class="contact-info">
-              <span class="contact-name">Hữu Luu</span>
-              <span class="contact-status">Ngoại tuyến</span>
-            </div>
-          </li>
+          @endforeach
         </ul>
         <div class="contact-footer">
           <p>
