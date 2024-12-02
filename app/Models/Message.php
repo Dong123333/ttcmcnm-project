@@ -11,12 +11,6 @@ class Message extends Model
 
     protected $fillable = ['sender_id', 'receiver_id', 'content'];
 
-    protected $primaryKey = 'id';
-
-    public $incrementing = true;
-
-    protected $keyType = 'int';
-
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id');

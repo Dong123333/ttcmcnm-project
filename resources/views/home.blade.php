@@ -32,7 +32,7 @@
                 >
               </li>
               <li>
-                <a href="/chat"
+                <a href="chat"
                   ><img src="{{ asset('images/chat_icon.svg') }}" alt="" />
                   <p>Tin Nhắn</p></a
                 >
@@ -44,7 +44,7 @@
                 >
               </li>
               <li>
-                <a href="{{ route('create') }}"
+                <a href="{{ route('posts.create') }}"
                   ><img src="{{ asset('images/plus_icon.svg') }}" alt="Cài Đặt" />
                   <p>Tạo</p></a
                 >
@@ -72,7 +72,7 @@
       <!-- Content -->
       <div class="main-content">
         @foreach($posts as $post)
-        <div class="post">
+        <div class="post" data-post-id="{{ $post->id }}" data-post-owner-id="{{ $post->user_id }}">
           <div class="post-header">
             <img
               src="{{ $post->user->avatar }}"
@@ -91,20 +91,38 @@
             </span>
             <div class="dropdown-menu-post">
               <ul>
-                <li><a class="dropdown-item-post"><img src="{{ asset('images/pen_icon.svg') }}" alt=""><p>Sửa bài viết</p></a></li>
-                <li><a class="dropdown-item-post"><img src="{{ asset('images/trash_icon.svg') }}" alt=""><p>Xóa bài viết</p></a></li>
+                @if (Auth::user()->id == $post->user_id)
+                <li>
+                  <a class="dropdown-item-post edit-post" href="{{ route('edit', ['id' => $post->id]) }}">
+                    <img src="{{ asset('images/pen_icon.svg') }}" alt="">
+                    <p>Sửa bài viết</p>
+                  </a>
+                </li>
+                <li>
+                <form action="{{ route('posts.destroy', ['postId' => $post->id]) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này?');">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="dropdown-item-post delete-post" style="background: none; border: none; padding: 0; cursor: pointer;">
+                      <img src="{{ asset('images/trash_icon.svg') }}" alt="">
+                      <p>Xóa bài viết</p>
+                  </button>
+                </form>
+                </li>
+                @endif
                 <li><a class="dropdown-item-post"><img src="{{ asset('images/save_icon copy.svg') }}" alt=""><p>Lưu bài viết</p></a></li>
               </ul>
             </div>
           </div>
           <div class="post-content">
-            <button class="slider-btn prev">❮</button>
-            <div class="slider-wrapper">
-              @foreach ($post->media as $media)
+            <!-- <button class="slider-btn prev">❮</button> -->
+            <div class="slider-wrapper" style="transform: translateX(0%);">
+            @foreach ($post->media as $media)        
+              <div class="image-wrapper" style="width: 100%; height: 100%; display: flex;">
                 <img src="{{ $media->media_url }}" alt="Post Image" class="post-img">
+              </div>
             @endforeach
             </div>
-            <button class="slider-btn next">❯</button>
+            <!-- <button class="slider-btn next">❯</button> -->
           </div>
           <div class="post-actions">
             <img src="{{ asset('images/like_icon.svg') }}" alt="Like" />
@@ -122,18 +140,36 @@
       <div class="account-info">
         <div class="profile-account">
           @if(Auth::check())
-        <div class="profile">
+          <div class="profile">
             <img src="{{ Auth::user()->avatar ?? 'default-avatar.jpg' }}" alt="Profile" class="profile-img" />
             <div class="profile-info">
-                <h4 class="username">{{ Auth::user()->fullName }}</h4>
-                <p class="fullname">{{ Auth::user()->nickName }}</p>
+                <h4 class="username">{{ Auth::user()->nickName }}</h4>
+                <p class="fullname">{{ Auth::user()->fullName }}</p>
             </div>
-        </div>
-    @endif
-        <form method="POST" action="{{ route('logout') }}" class="logout-form">
-            @csrf
-            <button type="submit" class="logout-button">Logout</button>
-        </form>
+          </div>
+          @endif
+            <div id="dropdown-menu" class="dropdown-menu">
+                <div class="dropdown-item">
+                  <img src="{{ asset('images/user_icon.svg') }}" alt="">
+                  <p>Thông tin cá nhân</p>
+                </div>
+                <div href="" class="dropdown-item">
+                  <img src="{{ asset('images/global_icon.svg') }}" alt="">
+                  <p>Ngôn ngữ</p>
+                </div>
+                <div href="" class="dropdown-item">
+                  <img src="{{ asset('images/security_icon.svg') }}" alt="">
+                  <p>Bảo mật</p>
+                </div>
+                <div href="" class="dropdown-item">
+                  <img src="{{ asset('images/support_icon.svg') }}" alt="">
+                  <p>Hỗ trợ</p>
+                </div>
+                <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                    @csrf
+                    <button type="submit" class="dropdown-item logout-button"><img src="{{ asset('images/logout_icon.svg') }}" alt=""><p>Đăng xuất</p></button>
+                </form>
+            </div>
         <div class="header-contact">
             <h3>Người liên hệ</h3>
         </div>
@@ -212,12 +248,6 @@
                 <div class="modal-section">
                   <p class="section-title">Ảnh hồ sơ</p>
                   <div class="profile-image-container">
-                    <!-- <img
-                      id="profileImage"
-                      src="https://placehold.co/400x400"
-                      alt="Profile"
-                      class="profile-image"
-                    /> -->
                     <img id="profileImage" src="{{ Auth::user()->avatar ?? 'https://placehold.co/400x400' }}" alt="Profile" class="profile-image" />
                     <label for="edit" class="edit-icon">
                       <svg
@@ -273,7 +303,7 @@
                       onchange="handleImageChange(event)"
                       class="hidden"
                       name="avatar"
-                    />
+                    />  
                   </div>
                 </div>
                 <div class="modal-section">

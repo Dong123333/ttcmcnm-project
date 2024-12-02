@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/Update_post.css') }}">
 </head>
 <body>
-    <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data" class="modal">
+    <form action="{{ route('update', $post->id) }}" method="POST" enctype="multipart/form-data" class="modal">
         @csrf
         <div class="modal-header">
             <span class="modal-title">Cập nhật bài viết</span>

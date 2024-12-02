@@ -1,40 +1,90 @@
-const chatMessages = document.getElementById("chat-messages");
-const messageInput = document.getElementById("message-input");
-const sendButton = document.getElementById("send-button");
+const contacts = document.querySelectorAll('.contact');
+        const chatHeaderUsername = document.getElementById('chat-header-username');
+        const chatHeaderAvatar = document.getElementById('chat-header-avatar');
+        const chatMessages = document.getElementById('chat-messages');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+        const userId = '{{ Auth::user()->id }}';
+        let receiverId;
+        // Xử lý khi click vào contact
+        contacts.forEach(contact => {
+          contact.addEventListener('click', () => {
+            receiverId = contact.dataset.id;
+            const receiverName = contact.dataset.name;
+            const receiverAvatar = contact.querySelector('.contact-avatar')?.src;
 
-// Placeholder data
-const messages = [
-  { type: "received", text: "Haha, ốp lưng của m định vàng hay kim cương vậy" },
-  { type: "sent", text: "mua ốp lưng tặng coin meme đi" },
-  { type: "received", text: "Dạ, nào anh làm cho em hùn vốn với" },
-];
+            // Cập nhật thông tin người nhận
+            // activeReceiverId = receiverId;
+            chatHeaderUsername.textContent = receiverName;
+            chatHeaderAvatar.src = receiverAvatar;
 
-// Function to display messages
-function renderMessages() {
-  chatMessages.innerHTML = ""; // Clear current messages
-  messages.forEach((msg) => {
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message", msg.type);
-    messageDiv.innerText = msg.text;
-    chatMessages.prepend(messageDiv);
-  });
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-// Function to scroll to the bottom of the chat
-function scrollToBottom() {
-  chatMessages.scrollTop = 0; // Đảo ngược chiều cuộn do column-reverse
-}
+            chatMessages.innerHTML = '';
+            fetchMessages(receiverId);
+          });
+        });
 
-// Send message
-sendButton.addEventListener("click", () => {
-  const text = messageInput.value.trim();
-  if (text) {
-    messages.push({ type: "sent", text });
-    messageInput.value = "";
-    renderMessages();
-  }
-});
+        const pusher = new Pusher('2d9d4f7fa9155bbd373f', {
+          cluster: 'ap1',
+          forceTLS: true
+        });
 
-// Initial render
-renderMessages();
-scrollToBottom();
+        // Lắng nghe kênh Pusher
+        const channel = pusher.subscribe('chat');
+        channel.bind('message.sent', function(data) {
+          if (data.message.sender_id !== userId) {
+            appendMessage(data.message.sender_id, data.message.content);
+          }
+        });
+
+        // Xử lý gửi tin nhắn
+        $('#chat-form').submit(function(e) {
+          e.preventDefault();
+
+          if (!receiverId) {
+            alert('Vui lòng chọn người nhận trước khi gửi tin nhắn!');
+            return;
+          }
+
+          const messageContent = messageInput.value.trim();
+
+          if (messageContent === '') {
+            alert('Nội dung tin nhắn không được để trống!');
+            return;
+          }
+
+          $.post('/broadcast', {
+            receiver_id: receiverId,
+            content: messageContent,
+            _token: '{{ csrf_token() }}'
+          }).done(function(response) {
+            // appendMessage(userId, messageContent); // Hiển thị tin nhắn của bản thân
+            messageInput.value = ''; // Reset input
+          }).fail(function(error) {
+            alert('Failed to send message');
+            console.error(error);
+          });
+        });
+
+        // Hàm tải tin nhắn từ server
+        function fetchMessages(receiverId) {
+          $.get(`/messages/${receiverId}`)
+            .done(function(messages) {
+              messages.forEach(message => {
+                appendMessage(message.sender_id, message.content);
+              });
+            })
+            .fail(function(error) {
+              console.error('Error loading messages:', error);
+              alert('Failed to load messages');
+            });
+        }
+
+        // Hàm thêm tin nhắn vào khung chat
+        function appendMessage(senderId, messageContent) {
+          const isSelf = senderId == userId;
+          const messageElement = `<p class="${isSelf ? 'sent' : 'received'}">
+                ${messageContent}
+            </p>`;
+          chatMessages.innerHTML += messageElement;
+          chatMessages.scrollTop = chatMessages.scrollHeight; // Cuộn xuống cuối
+        }

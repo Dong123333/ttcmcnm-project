@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/Create_post.css') }}">
 </head>
 <body>
-    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data" class="modal">
+    <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data" class="modal">
         @csrf
         <div class="modal-header">
             <span class="modal-title">Tạo bài viết mới</span>
