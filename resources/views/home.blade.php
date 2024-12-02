@@ -44,7 +44,7 @@
                 >
               </li>
               <li>
-                <a href="{{ route('posts.create') }}"
+                <a href="{{ route('create') }}"
                   ><img src="{{ asset('images/plus_icon.svg') }}" alt="Cài Đặt" />
                   <p>Tạo</p></a
                 >
@@ -118,6 +118,7 @@
           <span class="show-more">Xem thêm</span>
         </div>
         @endforeach
+      </div>
       <div class="account-info">
         <div class="profile-account">
           @if(Auth::check())
