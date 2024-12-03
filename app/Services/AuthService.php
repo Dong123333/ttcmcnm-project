@@ -128,6 +128,57 @@ class AuthService {
         return $user;
     }
 
+    public function forgetPassword($params)
+    {
+        try { 
+            $user = $this->user->where('email', $params['email'])->first();
+
+            if (!$user) {
+                return redirect()->route('form_forget-password')->withErrors(['email' => 'Email không tồn tại trong hệ thống.']);
+            }
+    
+            if (!empty($user->code_id)) {
+                if (strpos($user->code_id, 'google_') !== false) {
+                    return redirect()->route('form_forget-password')->withErrors(['email' => 'Email này đã được sử dụng với Google.']);
+                }
+                if (strpos($user->code_id, 'github_') !== false) {
+                    return redirect()->route('form_forget-password')->withErrors(['email' => 'Email này đã được sử dụng với GitHub.']);
+                }
+            }
+    
+            $code_id = (string) Str::uuid();
+            $expired_at = Carbon::now()->addMinutes(5);
+    
+            $user->update([
+                'code_id' => $code_id,
+                'expired_id' => $expired_at,
+            ]);
+    
+            Mail::to($user->email)->send(new VerificationMail($user, $code_id));
+            return $user;
+        } catch (Exception $e) {
+            Log::error($e);
+            return false;
+        }
+    }
+
+    public function resetPassword($params)
+    {
+        $user = $this->user->where('code_id', $params['code_id'])->first();
+
+        if (!$user) {
+            return false;
+        }
+
+        if (Carbon::now()->greaterThan($user->expired_at)) {
+            return false;
+        }
+        $user->update([
+           'password' => Hash::make($params['password']),
+        ]);
+        return true;
+    }
+
     public function logoutWeb()
     {
         Auth::logout();

@@ -11,7 +11,7 @@
         @csrf
         <div class="modal-header">
             <span class="modal-title">Cập nhật bài viết</span>
-            <button type="button" class="btn-close" onclick="alert('Đóng modal')">✖</button>
+            <button type="button" class="btn-close" onclick="handleClose()">✖</button>
         </div>
 
         <div class="modal-body">

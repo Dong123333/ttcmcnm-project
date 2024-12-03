@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\Auth\ForgetPasswordRequest;
 use App\Http\Requests\Web\Auth\LoginRequest;
 use App\Http\Requests\Web\Auth\RegisterRequest;
+use App\Http\Requests\Web\Auth\ResetPasswordRequest;
 use App\Http\Requests\Web\Auth\VerifyRequest;
 use App\Services\AuthService;
 use Illuminate\Support\Facades\Auth;
@@ -126,6 +128,38 @@ class AuthController extends Controller
         }
     }
 
+    public function showForgetPasswordForm() 
+    {
+        return view('auth.forget-password');
+    }
+
+    public function forgetPassword(ForgetPasswordRequest $forgetPasswordRequest)
+    {
+        $params = $forgetPasswordRequest->validated();
+        $result = $this->authService->forgetPassword($params);
+
+        if ($result) {
+            return redirect()->route('form_reset-password');
+        }
+
+        return back()->withErrors(['error' => 'Thất bại!']);
+    }
+
+    public function showResetPasswordForm() 
+    {
+        return view('auth.reset-password');
+    }
+
+    public function resetPassword(ResetPasswordRequest $resetPasswordRequest)
+    {
+        $params = $resetPasswordRequest->validated();
+        $isVerified = $this->authService->resetPassword($params);
+        if ($isVerified) {
+            return redirect()->route('form_login');
+        } else {
+            return back()->withErrors(['code_id' => 'Mã xác thực không hợp lệ hoặc đã hết hạn.']);
+        }
+    }
 
     public function logout()
     {

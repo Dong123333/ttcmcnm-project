@@ -37,7 +37,7 @@
                     </div>
                 </form>
                 <div class="login-forget-password">
-                    <a href="">Bạn quên mật khẩu?</a>
+                    <a href="{{ route('form_forget-password') }}">Bạn quên mật khẩu?</a>
                 </div>
                 <div class="login-divider">
                     <p>Hoặc</p>

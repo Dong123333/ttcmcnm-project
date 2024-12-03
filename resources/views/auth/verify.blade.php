@@ -13,7 +13,7 @@
                 <img src="{{ asset('images/image.png') }}" alt="">
             </div>
             <div class="verify-body">
-                <p class="verify-title">Cảm ơn bạn đã đăng ký website của Carry Team. Để kích hoạt tài khoản của bạn, vui lòng nhập mã kích hoạt:</p>
+                <p class="verify-title">Chào mừng bạn đến với website của Carry Team. Để xác thực tài khoản của bạn, vui lòng nhập mã kích hoạt:</p>
                 <form method="POST" action="{{ route('verify') }}">
                 @csrf
                     <div class="verify-form">

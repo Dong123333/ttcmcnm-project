@@ -32,6 +32,11 @@ Route::get('login/google/callback', [AuthController::class, 'handleGoogleCallbac
 Route::get('login/github', [AuthController::class, 'redirectToGitHub']);
 Route::get('login/github/callback', [AuthController::class, 'handleGitHubCallback']);
 
+Route::get('/forget-password', [AuthController::class, 'showForgetPasswordForm'])->name('form_forget-password');
+Route::post('/forget-password', [AuthController::class, 'forgetPassword'])->name('forget-password');
+Route::get('/reset-password', [AuthController::class, 'showResetPasswordForm'])->name('form_reset-password');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
+
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('check_user');
 
 Route::group(['middleware' => 'check_user'], function () {
