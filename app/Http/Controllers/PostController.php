@@ -74,47 +74,37 @@ class PostController extends Controller
 
     public function update(Request $request, $postId)
     {
-        // Kiểm tra nếu người dùng chưa đăng nhập
         if (!Auth::check()) {
             return redirect()->route('form_login')->with('error', 'Bạn cần đăng nhập để thực hiện hành động này.');
         }
 
-        // Validate input
         $request->validate([
             'content' => 'required|string|max:5000',
             'media.*' => 'nullable|file|mimes:jpeg,png,jpg,gif,mp4|max:102400'
         ]);
 
         try {
-            // Lấy bài viết từ DB theo postId
             $post = Post::with('media')->findOrFail($postId);
 
-            // Kiểm tra nếu người dùng không phải là chủ sở hữu bài viết
             if ($post->user_id !== Auth::id()) {
                 return redirect()->route('home')->with('error', 'Bạn không có quyền sửa bài viết này.');
             }
 
-            // Cập nhật nội dung bài viết
             $post->update(['content' => $request->content]);
             $post->save();
 
-            // Kiểm tra nếu có media mới được upload
             if ($request->hasFile('media')) {
-                // Xóa các media cũ nếu cần (nếu không còn cần thiết)
                  Media::where('post_id', $postId)->delete();
 
-                // Upload media mới nếu có
                 foreach ($request->file('media') as $file) {
                     $isVideo = strpos($file->getMimeType(), 'video') === 0;
 
-                    // Upload file lên Cloudinary
                     $uploadedFile = Cloudinary::upload($file->getRealPath(), [
                         'folder' => 'SocialNetwork',
                         'verify' => false,
                         'resource_type' => $isVideo ? 'video' : 'image'
                     ]);
 
-                    // Thêm media mới vào database
                     Media::create([
                         'post_id' => $post->id,
                         'media_type' => $file->getMimeType() === 'video/mp4' ? 'video' : 'image',

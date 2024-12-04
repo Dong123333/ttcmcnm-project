@@ -24,22 +24,17 @@
             </div>
             @endif
 
-            <!-- Nội dung bài viết -->
             <textarea name="content" placeholder="Bạn đang nghĩ gì?" required>{{ $post->content }}</textarea>
 
-            <!-- Media hiện tại -->
             <div class="upload-box">
                 <div id="preview-container">
-                    <!-- Media từ database sẽ được load bằng JavaScript -->
                 </div>
 
-                <!-- Chọn Media mới -->
                 <label for="media" style="cursor: pointer; color: #4caf50; font-weight: bold; padding: 10px;">Thay ảnh/video</label>
                 <input type="file" id="media" name="media[]" accept="image/*,video/*" multiple style="display: none;" onchange="previewMultipleMedia(event)">
                 <button id="clear-preview" onclick="clearPreview(event)" type="button" style="display: none; position: absolute; top: 10px; right: 10px; background: #f44336; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer;">X</button>
             </div>
 
-            <!-- Các hành động khác -->
             <div class="action-buttons">
                 <div class="action-item">
                     <img src="{{ asset('images/local_image.png') }}" alt="Ảnh/Video">
@@ -59,14 +54,13 @@
                 </div>
             </div>
 
-            <!-- Nút cập nhật -->
             <button type="submit" class="post-btn">Cập nhật</button>
         </div>
     </form>
 
     <script>
         window.mediaList = @json($post->media ?? []);
-        console.log(window.mediaList); // Kiểm tra mediaList trong console
+        console.log(window.mediaList);
     </script>
     <script src="{{ asset('js/Update_post.js') }}"></script>
 </body>

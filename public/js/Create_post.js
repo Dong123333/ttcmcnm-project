@@ -2,12 +2,10 @@ function previewMultipleMedia(event) {
     const files = event.target.files;
     const previewContainer = document.getElementById("preview-container");
     const clearButton = document.getElementById("clear-preview");
-    previewContainer.innerHTML = ""; // Xóa nội dung preview cũ
-
-    const maxPreview = 4; // Giới hạn tối đa 4 file
+    previewContainer.innerHTML = ""; 
+    const maxPreview = 4; 
     const fileArray = Array.from(files);
 
-    // Thay đổi lớp CSS của container dựa trên số lượng file
     if (fileArray.length === 1) {
         previewContainer.className = "single";
     } else if (fileArray.length === 2) {
@@ -18,7 +16,6 @@ function previewMultipleMedia(event) {
         previewContainer.className = "quadruple";
     }
 
-    // Hiển thị file
     fileArray.slice(0, maxPreview).forEach((file, index) => {
         const fileType = file.type;
 
@@ -44,7 +41,6 @@ function previewMultipleMedia(event) {
             container.appendChild(video);
         }
 
-        // Thêm lớp phủ "+n" nếu có nhiều hơn 4 file
         if (index === maxPreview - 1 && fileArray.length > maxPreview) {
             const overlay = document.createElement("div");
             overlay.className = "overlay";
@@ -55,27 +51,22 @@ function previewMultipleMedia(event) {
         previewContainer.appendChild(container);
     });
 
-    // Hiển thị nút "Clear" khi có file được chọn
     if (fileArray.length > 0) {
         clearButton.style.display = "block";
     }
 }
 
 function clearPreview(event) {
-    event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-
+    event.preventDefault(); 
     const previewContainer = document.getElementById("preview-container");
     const mediaInput = document.getElementById("media");
     const clearButton = document.getElementById("clear-preview");
 
-    // Xóa nội dung container
     previewContainer.innerHTML =
         '<p style="color: #888; align-items: center; justify-content: center;"></p>';
 
-    // Reset input file để cho phép chọn lại ảnh/video
     mediaInput.value = "";
 
-    // Ẩn nút "Clear"
     clearButton.style.display = "none";
 }
 

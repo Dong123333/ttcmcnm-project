@@ -1,7 +1,6 @@
-// Hàm để hiển thị media từ database
 function loadMediaFromDatabase(mediaList) {
     const previewContainer = document.getElementById("preview-container");
-    previewContainer.innerHTML = ""; // Xóa nội dung cũ
+    previewContainer.innerHTML = ""; 
 
     const maxPreview = 4;
 
@@ -49,13 +48,11 @@ function loadMediaFromDatabase(mediaList) {
     });
 }
 
-// Load media từ database khi trang được tải
 document.addEventListener("DOMContentLoaded", function () {
     const mediaList = window.mediaList || [];
     loadMediaFromDatabase(mediaList);
 });
 
-// js/update_post.js
 function previewMultipleMedia(event) {
     const files = event.target.files;
     const previewContainer = document.getElementById("preview-container");
@@ -125,4 +122,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function handleClose() {
     window.location.href = "/home";
+}
+if (fileArray.length > 0) {
+    clearButton.style.display = "block";
+}
+function clearPreview(event) {
+    event.preventDefault();
+
+    const previewContainer = document.getElementById("preview-container");
+    const mediaInput = document.getElementById("media");
+    const clearButton = document.getElementById("clear-preview");
+
+    previewContainer.innerHTML =
+        '<p style="color: #888; align-items: center; justify-content: center;"></p>';
+
+    mediaInput.value = "";
+
+    clearButton.style.display = "none";
 }
